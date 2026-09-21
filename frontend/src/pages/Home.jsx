@@ -26,7 +26,8 @@ export default function Home() {
     path: '/',
     schema: {
       "@context": "https://schema.org",
-      "@type": "MarketingAgency",
+      "@type": "LocalBusiness",
+      "additionalType": "https://schema.org/MarketingAgency",
       "name": "BASK Growth Agency",
       "url": "https://www.baskgrowth.xyz",
       "logo": "https://www.baskgrowth.xyz/logo.png",
@@ -49,13 +50,13 @@ export default function Home() {
           "@type": "Review",
           "reviewRating": { "@type": "Rating", "ratingValue": "5" },
           "author": { "@type": "Person", "name": "Rahul Menon" },
-          "reviewBody": "BASK scaled our Google Ads ROAS from 1.8x to 4.6x in 90 days. Best growth team we've worked with in Bangalore."
+          "reviewBody": "BASK scaled our Google Ads ROAS from 1.8x to 4.6x in 90 days. Best growth team in Bangalore."
         },
         {
           "@type": "Review",
           "reviewRating": { "@type": "Rating", "ratingValue": "5" },
           "author": { "@type": "Person", "name": "Priya Iyer" },
-          "reviewBody": "Excellent transparency, weekly reports, and their SEO strategy brought 3x organic traffic in 6 months."
+          "reviewBody": "Excellent transparency and their SEO strategy brought 3x organic traffic in 6 months."
         }
       ]
     },
