@@ -69,8 +69,10 @@ export default function Home() {
                 <textPath href="#circlePath" startOffset="0%">BASK CREATIVE · BANGALORE · AD AGENCY · </textPath>
               </text>
             </svg>
-            {/* Static center monogram */}
-            <div className="bask-circle-center">B.</div>
+            {/* Static center logo */}
+            <div className="bask-circle-center">
+              <img src="/logo.png" alt="Bask Logo" style={{ width: '55%', height: 'auto', display: 'block' }} />
+            </div>
           </div>
         </div>
       </div>
