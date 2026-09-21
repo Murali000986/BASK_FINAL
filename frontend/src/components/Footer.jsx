@@ -7,21 +7,21 @@ export default function Footer() {
         
         <div className="flex justify-between items-end mb-lg" style={{ borderBottom: '1px solid var(--gray-900)', paddingBottom: '32px' }}>
           <div>
-            <p className="bask-text-small text-muted mb-8">Got a brief?</p>
+            <p className="bask-text-small mb-8" style={{ color: 'var(--gray-300)' }}>Got a brief?</p>
             <h2 className="bask-headline-large" style={{ color: 'var(--white)' }}>Let's make the internet stare.</h2>
           </div>
-          <Link to="/contact" className="bask-link-underline" style={{ color: 'var(--white)' }}>Write a brief</Link>
+          <Link to="/contact" className="bask-link-underline" style={{ color: 'var(--white)', borderBottomColor: 'var(--white)' }}>Write a brief</Link>
         </div>
 
         <div className="bask-footer-grid">
           <div>
-            <p className="bask-text-small text-muted mb-16">Studio</p>
+            <p className="bask-text-small mb-16" style={{ color: 'var(--gray-300)' }}>Studio</p>
             <address style={{ fontStyle: 'normal', color: 'var(--white)', fontSize: '15px', lineHeight: '1.6' }}>
               No. 3-B, 3rd Floor<br/>
               Platinum Square, Coles Road<br/>
               Bangalore, India 560005
             </address>
-            <p className="bask-text-small text-muted mb-8 mt-24" style={{ marginTop: 24 }}>Direct</p>
+            <p className="bask-text-small mb-8 mt-24" style={{ marginTop: 24, color: 'var(--gray-300)' }}>Direct</p>
             <a href="mailto:hello@bask.studio" style={{ fontWeight: 600, fontSize: '15px' }}>hello@bask.studio</a>
           </div>
 

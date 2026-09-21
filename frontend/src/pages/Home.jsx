@@ -8,9 +8,9 @@ const CLIENTS = ['PEPS', 'CONCORDE', 'ADARSH', 'SHEAFFER', 'AUKERA', 'WEBER', 'P
 const SERVICES = ['Brand Strategy', 'Advertising', 'Film', 'Digital', 'OOH', 'Production', 'Environmental Graphics', 'Marketing Consultancy'];
 
 const WORKS = [
-  { id: '01', title: 'Puravankara', category: 'Real Estate', count: '11 works', image: '1564013799-91ece03e4bbc' },
-  { id: '02', title: 'Salvadores', category: 'F&B / Restaurant', count: '3 works', image: '1517248135467-4c7edcad34c4' },
-  { id: '03', title: 'The Presidential Tower', category: 'Real Estate', count: '4 works', image: '1600585154340-be6161a56a0c' },
+  { id: '01', title: 'Puravankara', category: 'Real Estate', count: '11 works', image: '1600596542815-ffad4c1539a9' },
+  { id: '02', title: 'Salvadores', category: 'F&B / Restaurant', count: '3 works', image: '1555396273-367ea4eb4db5' },
+  { id: '03', title: 'The Presidential Tower', category: 'Real Estate', count: '4 works', image: '1486406146926-c627a92ad1ab' },
 ];
 
 export default function Home() {
