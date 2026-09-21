@@ -28,9 +28,8 @@ export default function Footer() {
             </div>
             <p className="footer__tagline">Helping B2B and B2C brands scale acquisition with measurable ROI.</p>
             <address className="footer__address" style={{ fontStyle: 'normal' }}>
-              123 Harbor Way, Suite 400, San Francisco, CA 94185<br />
-              <a href="mailto:hello@growthpartner.agency">hello@growthpartner.agency</a><br />
-              (415) 555-0198
+              Bengaluru, Karnataka, India — 560001<br />
+              <a href="mailto:hello@baskgrowth.xyz">hello@baskgrowth.xyz</a>
             </address>
           </div>
           <div>

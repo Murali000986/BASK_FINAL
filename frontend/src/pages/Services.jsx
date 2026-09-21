@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
+import { useSEO } from '../hooks/useSEO';
 
 const QUICK_CONTACT = {
   phone: '+1 (415) 555-0132',
@@ -28,6 +29,12 @@ function FaqItem({ q, a }) {
 
 export default function Services() {
   const [services, setServices] = useState([]);
+
+  useSEO({
+    title: 'Digital Marketing Services Bangalore — Google Ads, SEO, CRO & More',
+    description: 'Full-funnel digital marketing services in Bengaluru: Paid Media (Google & Meta Ads), Technical SEO, CRO, Email Lifecycle Marketing. Data-driven results for Indian brands.',
+    path: '/services',
+  });
 
   useEffect(() => {
     api.getServices().then(setServices).catch(() => {});

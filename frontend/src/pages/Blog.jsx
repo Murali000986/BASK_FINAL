@@ -1,8 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
+import { useSEO } from '../hooks/useSEO';
 
 export default function Blog() {
+  useSEO({
+    title: 'Digital Marketing Blog — Growth Insights from Bangalore',
+    description: 'Tactical growth marketing content from BASK Agency, Bangalore. No fluff — real frameworks, SEO strategies, paid media tactics, and case study breakdowns for Indian brands.',
+    path: '/blog',
+  });
+
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 

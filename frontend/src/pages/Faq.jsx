@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useSEO } from '../hooks/useSEO';
 
 export default function Faq() {
+  useSEO({
+    title: 'FAQ — Digital Marketing Agency Bangalore Questions Answered',
+    description: 'Common questions about BASK Growth Agency, Bangalore. How we work, pricing, ad spend ranges, reporting, and what happens during the 14-day pilot.',
+    path: '/faq',
+  });
+
   const FAQS = [
     { q: "Do you require long-term contracts?", a: "No. We start with risk-free pilots, transitioning into a rolling month-to-month commitment." },
     { q: "What ad spend ranges do you manage?", a: "We manage multi-tier budgets across Meta, Google Ads, and LinkedIn." },

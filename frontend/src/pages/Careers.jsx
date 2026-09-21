@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { api } from '../api';
+import { useSEO } from '../hooks/useSEO';
 
 function ApplyForm({ job, onClose }) {
   const [form, setForm] = useState({ name: '', email: '', phone: '', coverLetter: '' });
@@ -104,6 +105,12 @@ function ApplyForm({ job, onClose }) {
 }
 
 export default function Careers() {
+  useSEO({
+    title: 'Careers at BASK — Join Bangalore\'s Top Growth Marketing Agency',
+    description: 'Join BASK Growth Agency in Bengaluru. Open roles in performance marketing, SEO, paid media, data analytics, and creative strategy. Remote-friendly positions.',
+    path: '/careers',
+  });
+
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);

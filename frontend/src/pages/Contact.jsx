@@ -1,10 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
+import { useSEO } from '../hooks/useSEO';
 
 const GOALS = ['Increase Sales', 'Reduce CAC', 'Scale Organic Traffic', 'Improve LTV', 'Launch New Channel', 'Analytics & Attribution'];
 
 export default function Contact() {
+  useSEO({
+    title: 'Contact BASK — Get a Free Growth Proposal from Our Bangalore Agency',
+    description: 'Get a free strategy proposal from BASK Growth Agency, Bangalore. We respond in 24–48 hours. Performance marketing, SEO, CRO for brands across India.',
+    path: '/contact',
+  });
+
   const [form, setForm] = useState({
     company: '', contact: '', email: '', phone: '',
     size: '1-10', budget: '', goal: 'Increase Sales',
@@ -208,9 +215,9 @@ export default function Contact() {
               <div>
                 <h3 style={{ marginBottom: 20 }}>Other Ways to Reach Us</h3>
                 <ul className="info-list">
-                  <li><span className="material-icons">email</span><a href="mailto:hello@growthpartner.agency">hello@growthpartner.agency</a></li>
-                  <li><span className="material-icons">phone</span>+1 (415) 555-0147</li>
-                  <li><span className="material-icons">location_on</span>124 Market St, Suite 400, San Francisco, CA 94103<br />Office hours: Mon–Fri 9:00am – 5:00pm</li>
+                  <li><span className="material-icons">email</span><a href="mailto:hello@baskgrowth.xyz">hello@baskgrowth.xyz</a></li>
+                  <li><span className="material-icons">phone</span>+91 98765 43210</li>
+                  <li><span className="material-icons">location_on</span>Bengaluru, Karnataka, India — 560001<br />Office hours: Mon–Fri 9:00am – 7:00pm IST</li>
                 </ul>
                 <div style={{ marginTop: 20 }}>
                   <a href="#" style={{ fontSize: 13, marginRight: 16, color: 'var(--gray-500)' }}>Privacy Policy</a>

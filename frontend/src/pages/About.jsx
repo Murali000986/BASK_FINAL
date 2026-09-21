@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
+import { useSEO } from '../hooks/useSEO';
 
 const TIMELINE = [
   { year: '2015', text: 'Founded in San Francisco — first team of product marketers and data scientists.' },
@@ -21,6 +22,12 @@ const PARTNERS = [
 
 export default function About() {
   const [team, setTeam] = useState(null);
+
+  useSEO({
+    title: 'About BASK — Performance Marketing Agency in Bangalore, India',
+    description: 'Meet the BASK team: Bangalore\'s performance-first growth agency. Google Premier Partner. Serving B2B and B2C brands across India since 2015.',
+    path: '/about',
+  });
 
   useEffect(() => {
     api.getTeam().then(setTeam).catch(() => {});

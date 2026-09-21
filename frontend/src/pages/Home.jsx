@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
+import { useSEO } from '../hooks/useSEO';
 
 const STATS = [
   { value: 'Average 3.4x Growth', label: 'Average 3.4x Growth', desc: 'Median revenue lift across paid channels in first 6 months' },
@@ -18,6 +19,12 @@ export default function Home() {
   const [services, setServices] = useState([]);
   const [cases, setCases] = useState([]);
   const [team, setTeam] = useState(null);
+
+  useSEO({
+    title: 'Performance Marketing Agency Bangalore — Real Growth, Measurable ROI',
+    description: 'BASK is Bangalore\'s top performance marketing agency. Google Ads, Meta Ads, SEO, CRO & Email for B2B & B2C brands across India. 3.4x average growth. Get a free strategy call.',
+    path: '/',
+  });
 
   useEffect(() => {
     api.getServices().then(s => setServices(s.slice(0, 3))).catch(() => {});

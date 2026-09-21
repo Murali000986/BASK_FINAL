@@ -1,12 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
+import { useSEO } from '../hooks/useSEO';
 
 const INDUSTRIES = ['All Industries', 'eCommerce', 'SaaS', 'Healthcare', 'Fintech', 'B2B'];
 const SERVICE_TYPES = ['All Services', 'Paid Media', 'Conversion Rate Optimization', 'SEO & Content', 'Product Analytics', 'Creative Strategy'];
 const ICONS = ['storefront', 'science', 'local_hospital', 'account_balance_wallet', 'lock', 'groups'];
 
 export default function CaseStudies() {
+  useSEO({
+    title: 'Case Studies — Proven Growth Results by BASK Agency Bangalore',
+    description: 'See real results from BASK Growth Agency: eCommerce, SaaS, B2B brands across Bangalore and India. Paid media, SEO, CRO — measurable ROI every time.',
+    path: '/case-studies',
+  });
+
   const [cases, setCases] = useState([]);
   const [search, setSearch] = useState('');
   const [industry, setIndustry] = useState('All Industries');
