@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "title": "How We Scaled a DTC Brand's ROAS by 85% in 12 Weeks",
+    "slug": "scaled-dtc-brand-roas-85-percent",
+    "category": "Performance Marketing",
+    "excerpt": "A deep dive into the creative-first framework that turned a struggling paid media account into a profit engine.",
+    "content": "When we first audited the account, CPAs were 3x above target and creative fatigue was killing performance. Here's exactly what we changed.\n\n## The Problem\n\nBroad audience targeting with static creatives led to diminishing returns. The algorithm had no signal diversity to work with.\n\n## Our Approach\n\nWe introduced a Creative Testing Roster — 12 concepts per sprint, tested across 4 audience segments. Winners scaled, losers cut within 72 hours.\n\nKey changes:\n- Dynamic Product Ads layered with UGC hooks\n- Lookalike suppression to avoid overlap\n- Bid strategy shift from lowest cost to cost cap once CPA stabilized\n\n## Results\n\n3x revenue, 85% ROAS improvement, and a repeatable system the client's in-house team can now run independently.",
+    "author": "BASK Team",
+    "publishedAt": "2026-09-10T00:00:00.000Z",
+    "coverImage": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+  },
+  {
+    "id": 2,
+    "title": "The Only SEO Audit Checklist You Need in 2026",
+    "slug": "seo-audit-checklist-2026",
+    "category": "SEO & Content",
+    "excerpt": "Most SEO audits miss the same 5 issues. Here's the exact process we use with every new client.",
+    "content": "After running 40+ SEO audits, we've identified the patterns that separate a 10% organic lift from a 200% one.\n\n## Core Web Vitals First\n\nLCP above 2.5s? Fix it before anything else. Google's ranking signal correlation with Core Web Vitals is now undeniable.\n\n## The 5 Missed Issues\n\n1. Crawl budget waste on paginated URLs\n2. Thin content on category pages\n3. Internal link equity leaking to noindex pages\n4. Missing entity markup for local businesses\n5. Duplicate title tags across faceted navigation\n\n## Our Process\n\nWe run Screaming Frog + manual spot checks + search console data triangulation. No tool alone gives the full picture.\n\nThe result: clients who fix these 5 issues see, on average, 40% more organic sessions within 90 days.",
+    "author": "BASK Team",
+    "publishedAt": "2026-09-01T00:00:00.000Z",
+    "coverImage": "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80"
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "agency_name": "BASK Agency",
+  "tagline": "Performance-aligned. Zero black box. Cancel anytime.",
+  "core_services": [
+    {
+      "name": "Paid Media (Ads)",
+      "description": "Meta, Google, TikTok, and LinkedIn. We manage enterprise ad budgets with absolute precision to drive down CAC and exponentially increase ROAS."
+    },
+    {
+      "name": "SEO & Organic",
+      "description": "Technical SEO, content architecture, and backlink strategies that build an organic moat around your business, reducing reliance on paid channels."
+    },
+    {
+      "name": "CRO & Landing Pages",
+      "description": "Traffic means nothing if it doesn't convert. We design, code, and A/B test high-performance landing pages that squeeze every drop of ROI from your ads."
+    },
+    {
+      "name": "Lifecycle & Email",
+      "description": "Maximizing LTV through advanced Klaviyo/HubSpot automated flows. We turn one-time buyers into loyal, repeat brand advocates."
+    }
+  ],
+  "methodology": "Our 4-step framework: 1. Strategic Alignment (deep dive discussion). 2. Deep Research & Planning (market audit & 90-day action plan). 3. Collaborative Review (strategy presentation before spending). 4. Calculated Execution (data-backed experiments).",
+  "pricing": "We offer completely custom pricing based on client ambitions. Growth Pilots are typically custom fixed-fees. For scaling retainers, we charge a flat management fee plus a performance bonus tied directly to revenue targets. We rarely charge a flat percentage of ad spend.",
+  "guarantees": "We guarantee our output, testing velocity, and transparency. No exact ROAS guarantees due to market volatility. Clients can cancel without obligation if pilot metrics aren't hit in 14 days.",
+  "contact": {
+    "email": "hello@growthpartner.agency",
+    "phone": "+1 (415) 555-0147",
+    "location": "124 Market St, Suite 400, San Francisco, CA 94103"
+  },
+  "persona_instructions": "You are 'BASK', the official AI assistant for BASK Agency. Your tone is professional, confident, terse, and highly competent. You answer questions strictly based on the provided agency data. If a user asks a question about something not in this document, politely state that they can schedule a discovery call or email hello@growthpartner.agency for specific strategic answers."
+}

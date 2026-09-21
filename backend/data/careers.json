@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "title": "Growth Strategist",
+    "department": "Strategy",
+    "type": "Full-time",
+    "location": "Remote / Bangalore",
+    "description": "We're looking for a sharp Growth Strategist to lead client engagements, design growth roadmaps, and collaborate cross-functionally with our performance and creative teams.",
+    "requirements": ["3+ years in growth or digital marketing", "Strong analytical mindset", "Experience with B2B or DTC brands", "Excellent written and verbal communication"],
+    "postedAt": "2026-09-15T00:00:00.000Z",
+    "active": true
+  },
+  {
+    "id": 2,
+    "title": "Paid Media Manager",
+    "department": "Performance Marketing",
+    "type": "Full-time",
+    "location": "Remote",
+    "description": "Manage and scale paid media campaigns across Meta, Google, and programmatic channels. Drive measurable ROAS improvements for a portfolio of growth-stage clients.",
+    "requirements": ["2+ years managing paid media budgets", "Proficient in Meta Ads Manager and Google Ads", "Data-driven decision making", "Experience with creative testing frameworks"],
+    "postedAt": "2026-09-18T00:00:00.000Z",
+    "active": true
+  }
+]
