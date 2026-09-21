@@ -24,6 +24,41 @@ export default function Home() {
     title: 'Performance Marketing Agency Bangalore — Real Growth, Measurable ROI',
     description: 'BASK is Bangalore\'s top performance marketing agency. Google Ads, Meta Ads, SEO, CRO & Email for B2B & B2C brands across India. 3.4x average growth. Get a free strategy call.',
     path: '/',
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "MarketingAgency",
+      "name": "BASK Growth Agency",
+      "url": "https://www.baskgrowth.xyz",
+      "logo": "https://www.baskgrowth.xyz/logo.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Bengaluru",
+        "addressRegion": "Karnataka",
+        "postalCode": "560001",
+        "addressCountry": "IN"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "47",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5" },
+          "author": { "@type": "Person", "name": "Rahul Menon" },
+          "reviewBody": "BASK scaled our Google Ads ROAS from 1.8x to 4.6x in 90 days. Best growth team we've worked with in Bangalore."
+        },
+        {
+          "@type": "Review",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5" },
+          "author": { "@type": "Person", "name": "Priya Iyer" },
+          "reviewBody": "Excellent transparency, weekly reports, and their SEO strategy brought 3x organic traffic in 6 months."
+        }
+      ]
+    },
   });
 
   useEffect(() => {
