@@ -5,6 +5,8 @@ import { useSEO } from '../hooks/useSEO';
 
 const CLIENTS = ['PEPS', 'CONCORDE', 'ADARSH', 'SHEAFFER', 'AUKERA', 'WEBER', 'PURAVANKARA', 'EMBASSY', 'PLATINUM', 'SKYYE', 'ZLATE', 'SOBHA'];
 
+const TYPWORDS = ['Branding', 'Advertising', 'Digital', 'Film', 'OOH', 'Strategy'];
+
 const SERVICES = ['Brand Strategy', 'Advertising', 'Film', 'Digital', 'OOH', 'Production', 'Environmental Graphics', 'Marketing Consultancy'];
 
 const WORKS = [
@@ -14,6 +16,20 @@ const WORKS = [
 ];
 
 export default function Home() {
+  const [wordIdx, setWordIdx] = useState(0);
+  const [fade, setFade] = useState(true);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setWordIdx(i => (i + 1) % TYPWORDS.length);
+        setFade(true);
+      }, 400);
+    }, 2200);
+    return () => clearInterval(timer);
+  }, []);
+
   useSEO({
     title: 'Bask Creative — Built for impact.',
     description: 'Bask is an ad agency in Bangalore bringing strategic thinking and bold ideas to the table. Branding, digital strategy, film & production.',
@@ -72,6 +88,20 @@ export default function Home() {
             {/* Static center logo */}
             <div className="bask-circle-center">
               <img src="/logo.png" alt="Bask Logo" style={{ width: '55%', height: 'auto', display: 'block' }} />
+            </div>
+          </div>
+
+          {/* Animated stats + typewriter */}
+          <div className="bask-hero-side-info animate-fade-up delay-300">
+            <div className="bask-hero-stats">
+              <div className="bask-stat-pill"><span className="bask-stat-num">50+</span><span className="bask-stat-label">Brands Built</span></div>
+              <div className="bask-stat-pill"><span className="bask-stat-num">8</span><span className="bask-stat-label">Years in the Game</span></div>
+              <div className="bask-stat-pill"><span className="bask-stat-num">47</span><span className="bask-stat-label">Happy Clients</span></div>
+            </div>
+            <div className="bask-typewriter">
+              <span className="bask-typewriter-prefix">We do </span>
+              <span className="bask-typewriter-word" style={{ opacity: fade ? 1 : 0 }}>{TYPWORDS[wordIdx]}</span>
+              <span className="bask-typewriter-cursor">|</span>
             </div>
           </div>
         </div>

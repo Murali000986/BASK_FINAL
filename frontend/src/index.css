@@ -846,6 +846,73 @@ textarea { resize: vertical; min-height: 120px; }
   .bask-hero-logo-wrap { display: none; }
 }
 
+/* ── Hero Right Side Info (stats + typewriter) ─── */
+.bask-hero-logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.bask-hero-side-info {
+  width: 100%;
+  max-width: 440px;
+}
+.bask-hero-stats {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.bask-stat-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--black);
+  color: var(--white);
+  border-radius: 999px;
+  padding: 12px 24px;
+  min-width: 110px;
+}
+.bask-stat-num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.bask-stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+/* Typewriter */
+.bask-typewriter {
+  text-align: center;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--black);
+}
+.bask-typewriter-prefix { opacity: 0.4; }
+.bask-typewriter-word {
+  transition: opacity 0.35s ease;
+  display: inline-block;
+}
+.bask-typewriter-cursor {
+  animation: cursorBlink 0.9s step-end infinite;
+  font-weight: 300;
+  opacity: 0.5;
+  margin-left: 2px;
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 0; }
+}
+
 /* ── Bask Creative Agency Overrides ─────────────────────────── */
 .bask-text-small {
   font-size: 13px;
