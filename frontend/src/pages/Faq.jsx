@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { useSEO } from '../hooks/useSEO';
 
 const FAQS = [
@@ -34,32 +34,45 @@ export default function Faq() {
     schema: FAQ_SCHEMA,
   });
 
+  const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <div className="container" style={{ paddingTop: 64, paddingBottom: 80, maxWidth: 860 }}>
-      {/* ── Hero ── */}
-      <div className="section-header section-header--center">
-        <p className="section-header__label animate-fade-up">Deep Dive</p>
-        <h1 className="section-header__title animate-fade-up delay-100">Frequently Asked Questions</h1>
-        <p className="animate-fade-up delay-200" style={{ fontSize: '1.1rem', color: 'var(--gray-600)', marginTop: 16 }}>
-          Everything you need to know about how we operate, how we bill, and how we scale.
+    <div className="bask-page">
+      <div className="container pt-lg pb-lg">
+        <p className="bask-text-small text-muted fw-600 mb-8 animate-fade-up">Deep Dive</p>
+        <h1 className="bask-hero-heading animate-fade-up delay-100 mb-24" style={{ maxWidth: 900 }}>
+          Everything you need to know.
+        </h1>
+        <p className="bask-hero-paragraph animate-fade-up delay-200">
+          How we operate, how we bill, and how we scale.
         </p>
       </div>
 
-      {/* ── FAQ List ── */}
-      <div className="faq-list animate-fade-up delay-300" style={{ marginTop: 48 }}>
-        {FAQS.map((faq, i) => (
-          <div key={i} className="faq-item" style={i === 0 ? { borderTop: '1px solid var(--gray-200)' } : {}}>
-            <h3 className="faq-item__q" style={{ cursor: 'default' }}>{faq.q}</h3>
-            <p className="faq-item__a">{faq.a}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* ── Bottom CTA ── */}
-      <div className="animate-fade-up delay-400" style={{ textAlign: 'center', marginTop: 64 }}>
-        <h3 style={{ marginBottom: 16 }}>Still have specific questions?</h3>
-        <Link to="/contact" className="btn btn--primary">Get in Touch</Link>
+      <div className="container pb-xl">
+        <div className="bask-faq-list" style={{ borderTop: '2px solid var(--black)', maxWidth: 900 }}>
+          {FAQS.map((faq, i) => {
+            const isOpen = openIndex === i;
+            return (
+              <div key={i} className="bask-faq-item" style={{ borderBottom: '2px solid var(--gray-200)' }}>
+                <button 
+                  className="bask-faq-q"
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  style={{ width: '100%', textAlign: 'left', background: 'none', border: 'none', padding: '32px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}
+                >
+                  <span style={{ fontSize: 'clamp(1.2rem, 3vw, 2rem)', fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--black)', paddingRight: 32 }}>{faq.q}</span>
+                  <span className="material-icons" style={{ fontSize: 24, transition: 'transform 0.3s', transform: isOpen ? 'rotate(180deg)' : 'none' }}>
+                    expand_more
+                  </span>
+                </button>
+                {isOpen && (
+                  <div className="bask-faq-a" style={{ paddingBottom: '32px', fontSize: '1.25rem', lineHeight: 1.6, color: 'var(--gray-700)' }}>
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

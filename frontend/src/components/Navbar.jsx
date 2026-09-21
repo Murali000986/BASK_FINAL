@@ -1,53 +1,40 @@
 import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
-const links = [
-  { to: '/', label: 'Home' },
-  { to: '/services', label: 'Services' },
-  { to: '/case-studies', label: 'Case Studies' },
-  { to: '/blog', label: 'Blog' },
-  { to: '/careers', label: 'Careers' },
-  { to: '/about', label: 'About' },
-  { to: '/contact', label: 'Contact' },
-];
-
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <nav className="navbar">
-        <div className="container navbar__inner">
-          <Link to="/" className="navbar__logo" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none' }}>
-            <img src="/logo.png" alt="BASK Agency" style={{ height: 48 }} />
-          </Link>
-          <div className="navbar__nav">
-            {links.map(l => (
-              <NavLink
-                key={l.to}
-                to={l.to}
-                end={l.to === '/'}
-                className={({ isActive }) => 'navbar__link' + (isActive ? ' active' : '')}
-              >
-                {l.label}
-              </NavLink>
-            ))}
+      <nav className="bask-navbar">
+        <div className="bask-navbar-inner">
+          <Link to="/" className="bask-logo">Bask.</Link>
+          
+          <div className="bask-nav-links">
+            <NavLink to="/case-studies">Work</NavLink>
+            <NavLink to="/services">Services</NavLink>
+            <NavLink to="/about">About</NavLink>
+            <NavLink to="/blog">Blog</NavLink>
+            <NavLink to="/careers">Careers</NavLink>
+            <NavLink to="/faq">FAQ</NavLink>
+            <Link to="/contact" className="bask-nav-cta">Write a brief</Link>
           </div>
-          <div className="navbar__actions">
-            <Link to="/contact" className="btn btn--primary btn--sm">Get a Proposal</Link>
-            <button
-              className={`navbar__hamburger${open ? ' open' : ''}`}
-              onClick={() => setOpen(o => !o)}
-              aria-label="Toggle menu"
-            >
-              <span /><span /><span />
-            </button>
-          </div>
+
+          <button className={`bask-hamburger ${isOpen ? 'open' : ''}`} onClick={() => setIsOpen(!isOpen)}>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </nav>
-      <div className={`mobile-nav${open ? ' open' : ''}`} onClick={() => setOpen(false)}>
-        {links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'}>{l.label}</NavLink>)}
-        <Link to="/contact" className="btn btn--primary">Get a Proposal</Link>
+
+      <div className={`bask-mobile-nav ${isOpen ? 'open' : ''}`}>
+        <NavLink to="/case-studies" onClick={() => setIsOpen(false)}>Work</NavLink>
+        <NavLink to="/services" onClick={() => setIsOpen(false)}>Services</NavLink>
+        <NavLink to="/about" onClick={() => setIsOpen(false)}>About</NavLink>
+        <NavLink to="/blog" onClick={() => setIsOpen(false)}>Blog</NavLink>
+        <NavLink to="/careers" onClick={() => setIsOpen(false)}>Careers</NavLink>
+        <NavLink to="/faq" onClick={() => setIsOpen(false)}>FAQ</NavLink>
+        <Link to="/contact" className="btn btn--primary" onClick={() => setIsOpen(false)} style={{ marginTop: 24, justifyContent: 'center' }}>Write a brief</Link>
       </div>
     </>
   );
