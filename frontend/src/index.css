@@ -790,14 +790,15 @@ textarea { resize: vertical; min-height: 120px; }
 .bask-hero-grid {
   display: grid;
   grid-template-columns: 1fr 420px;
-  align-items: center;
+  align-items: flex-start;
   gap: 40px;
 }
 .bask-hero-text { flex: 1; }
 .bask-hero-logo-wrap {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  margin-top: -40px;
 }
 
 /* Spinning Circular Logo */
