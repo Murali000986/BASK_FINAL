@@ -13,7 +13,7 @@ export default function Blog() {
   });
 
   useEffect(() => {
-    api.getBlogPosts().then(setPosts).catch(() => {});
+    api.getBlogs().then(setPosts).catch(() => {});
   }, []);
 
   return (

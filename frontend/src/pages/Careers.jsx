@@ -12,7 +12,7 @@ export default function Careers() {
   });
 
   useEffect(() => {
-    api.getPositions().then(setPositions).catch(() => {});
+    api.getCareers().then(setPositions).catch(() => {});
   }, []);
 
   return (
