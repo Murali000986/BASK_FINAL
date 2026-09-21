@@ -51,11 +51,28 @@ export default function Home() {
       </div>
 
       {/* ── Giant Editorial Hero ── */}
-      <div className="container pb-lg">
-        <h1 className="bask-hero-heading animate-fade-up">Hello,<br/>we are<br/>Bask.</h1>
-        <p className="bask-hero-paragraph animate-fade-up delay-100">
-          Bask is an ad agency that brings strategic thinking and bold ideas to the table, with an eye for creativity that would make your brand truly stand out. Whether it's branding, digital strategy, or a standout communication. We take pride in turning fresh ideas into impactful results.
-        </p>
+      <div className="container pb-lg bask-hero-grid">
+        <div className="bask-hero-text">
+          <h1 className="bask-hero-heading animate-fade-up">Hello,<br/>we are<br/>Bask.</h1>
+          <p className="bask-hero-paragraph animate-fade-up delay-100">
+            Bask is an ad agency that brings strategic thinking and bold ideas to the table, with an eye for creativity that would make your brand truly stand out. Whether it's branding, digital strategy, or a standout communication. We take pride in turning fresh ideas into impactful results.
+          </p>
+        </div>
+        <div className="bask-hero-logo-wrap animate-fade-up delay-200">
+          <div className="bask-circle-logo">
+            {/* Spinning circular text ring */}
+            <svg className="bask-circle-spin" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <path id="circlePath" d="M100,100 m-75,0 a75,75 0 1,1 150,0 a75,75 0 1,1 -150,0" />
+              </defs>
+              <text fontSize="13" fontWeight="700" letterSpacing="6" fill="currentColor" textAnchor="middle" fontFamily="Inter, system-ui, sans-serif">
+                <textPath href="#circlePath" startOffset="0%">BASK CREATIVE · BANGALORE · AD AGENCY · </textPath>
+              </text>
+            </svg>
+            {/* Static center monogram */}
+            <div className="bask-circle-center">B.</div>
+          </div>
+        </div>
       </div>
 
       {/* ── Services Ticker ── */}

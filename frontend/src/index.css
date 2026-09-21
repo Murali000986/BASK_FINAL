@@ -786,6 +786,65 @@ textarea { resize: vertical; min-height: 120px; }
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 
+/* ── Hero Two-Column Grid ─────────────────────────────────────── */
+.bask-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  align-items: center;
+  gap: 40px;
+}
+.bask-hero-text { flex: 1; }
+.bask-hero-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Spinning Circular Logo */
+.bask-circle-logo {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  flex-shrink: 0;
+}
+.bask-circle-spin {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: baskSpin 12s linear infinite;
+  color: var(--black);
+  transform-origin: center center;
+}
+@keyframes baskSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.bask-circle-logo:hover .bask-circle-spin {
+  animation-play-state: paused;
+}
+.bask-circle-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  color: var(--black);
+  user-select: none;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.bask-circle-logo:hover .bask-circle-center {
+  transform: scale(1.08);
+}
+
+@media (max-width: 1024px) {
+  .bask-hero-grid { grid-template-columns: 1fr; }
+  .bask-hero-logo-wrap { display: none; }
+}
+
 /* ── Bask Creative Agency Overrides ─────────────────────────── */
 .bask-text-small {
   font-size: 13px;
