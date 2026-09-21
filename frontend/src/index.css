@@ -789,7 +789,7 @@ textarea { resize: vertical; min-height: 120px; }
 /* ── Hero Two-Column Grid ─────────────────────────────────────── */
 .bask-hero-grid {
   display: grid;
-  grid-template-columns: 1fr 420px;
+  grid-template-columns: 1fr 460px;
   align-items: flex-start;
   gap: 40px;
 }
@@ -804,8 +804,8 @@ textarea { resize: vertical; min-height: 120px; }
 /* Spinning Circular Logo */
 .bask-circle-logo {
   position: relative;
-  width: 320px;
-  height: 320px;
+  width: 440px;
+  height: 440px;
   flex-shrink: 0;
 }
 .bask-circle-spin {
