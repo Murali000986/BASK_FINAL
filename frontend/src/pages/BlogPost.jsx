@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../api';
+import { useSEO } from '../hooks/useSEO';
 
 export default function BlogPost() {
   const { slug } = useParams();
@@ -14,6 +15,31 @@ export default function BlogPost() {
       .catch(() => setNotFound(true))
       .finally(() => setLoading(false));
   }, [slug]);
+
+  useSEO({
+    title: post ? post.title : 'Journal',
+    description: post ? (post.excerpt || post.summary || post.title) : 'Thoughts and essays from Bask Creative.',
+    path: `/blog/${slug}`,
+    image: post?.coverImage || post?.image,
+    schema: post ? {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.excerpt || post.summary || post.title,
+      "image": post.coverImage || post.image,
+      "author": {
+        "@type": "Person",
+        "name": post.author || "Bask Team"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Bask Creative Agency",
+        "logo": "https://www.baskgrowth.xyz/logo.png"
+      },
+      "datePublished": post.publishedAt || post.date,
+      "mainEntityOfPage": `https://www.baskgrowth.xyz/blog/${slug}`
+    } : null
+  });
 
   if (loading) return <div style={{ textAlign: 'center', padding: '120px 0', color: 'var(--gray-400)' }}>Loading…</div>;
   if (notFound) return (

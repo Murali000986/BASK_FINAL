@@ -48,26 +48,14 @@ export default function Contact() {
                 <input required type="email" placeholder="Email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="bask-form-input" />
               </div>
               <div style={{ marginBottom: 32 }}>
-                <select required value={form.budget} onChange={e => setForm({...form, budget: e.target.value})} className="bask-form-input">
-                  <option value="" disabled>Select Budget Range</option>
-                  <optgroup label="Brand &amp; Strategy">
-                    <option value="brand-starter">Brand Starter — ₹75K–₹1.5L</option>
-                    <option value="brand-full">Full Brand Identity — ₹1.5L–₹4L</option>
-                  </optgroup>
-                  <optgroup label="Digital &amp; Social">
-                    <option value="digital-basic">Digital Starter — ₹25K–₹60K / month</option>
-                    <option value="digital-growth">Digital Growth — ₹60K–₹1.5L / month</option>
-                    <option value="digital-performance">Performance Marketing — ₹1.5L–₹5L / month</option>
-                  </optgroup>
-                  <optgroup label="Film &amp; Production">
-                    <option value="film-short">Short-form Content — ₹50K–₹1.5L</option>
-                    <option value="film-brand">Brand Film / TVC — ₹2L–₹10L+</option>
-                  </optgroup>
-                  <optgroup label="Retainer">
-                    <option value="retainer-full">Full-Service Retainer — ₹3L+ / month</option>
-                  </optgroup>
-                  <option value="custom">Custom / Let's Talk</option>
-                </select>
+                <input
+                  required
+                  type="text"
+                  placeholder="Your Budget (e.g. ₹50,000 / month)"
+                  value={form.budget}
+                  onChange={e => setForm({...form, budget: e.target.value})}
+                  className="bask-form-input"
+                />
               </div>
               <div style={{ marginBottom: 40 }}>
                 <textarea required placeholder="Project Details / Your Brief" rows="5" value={form.details} onChange={e => setForm({...form, details: e.target.value})} className="bask-form-input"></textarea>
