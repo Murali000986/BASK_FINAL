@@ -15,6 +15,8 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import ChatWidget from './components/ChatWidget';
 
+import Showcase from './pages/Showcase';
+
 function WithLayout({ children }) {
   return (
     <>
@@ -36,6 +38,7 @@ export default function App() {
 
         {/* Public pages */}
         <Route path="/" element={<WithLayout><Home /></WithLayout>} />
+        <Route path="/showcase" element={<WithLayout><Showcase /></WithLayout>} />
         <Route path="/services" element={<WithLayout><Services /></WithLayout>} />
         <Route path="/case-studies" element={<WithLayout><CaseStudies /></WithLayout>} />
         <Route path="/about" element={<WithLayout><About /></WithLayout>} />

@@ -65,8 +65,8 @@ export default function BlogPost() {
       </div>
 
       {post.coverImage && (
-        <div style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', marginBottom: 40, height: 340 }}>
-          <img src={post.coverImage} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <div className="img-shimmer-wrapper img-color-halo" style={{ borderRadius: 'var(--radius-lg)', marginBottom: 40, height: 340 }}>
+          <img src={post.coverImage} alt={post.title} className="img-animated-hero" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
       )}
 

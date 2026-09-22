@@ -42,8 +42,8 @@ export default function CaseStudies() {
                   <p className="bask-text-small text-muted">{w.industry} · {w.metric || 'Scale phase'}</p>
                 </div>
               </div>
-              <div className="bask-work-visual">
-                <img src={`https://images.unsplash.com/photo-${w.image}?auto=format&fit=crop&w=1400&q=80`} alt={w.client} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div className="bask-work-visual img-shimmer-wrapper">
+                <img src={`https://images.unsplash.com/photo-${w.image}?auto=format&fit=crop&w=1400&q=80`} alt={w.client} className="img-animated-card" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
             </div>
           ))}

@@ -17,11 +17,14 @@ export default function About() {
       </div>
 
       <div className="container pb-lg">
-        <img 
-          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" 
-          alt="Bask team collaborating in Bangalore studio" 
-          style={{ width: '100%', height: '500px', objectFit: 'cover' }} 
-        />
+        <div className="img-shimmer-wrapper img-color-halo" style={{ width: '100%', borderRadius: 'var(--radius-lg)' }}>
+          <img 
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" 
+            alt="Bask team collaborating in Bangalore studio" 
+            className="img-animated-card"
+            style={{ width: '100%', height: '500px', objectFit: 'cover' }} 
+          />
+        </div>
       </div>
 
       <div className="container pb-lg">

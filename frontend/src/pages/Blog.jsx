@@ -90,8 +90,8 @@ export default function Blog() {
             {posts.map(p => (
               <div key={p.id} className="bask-blog-card">
                 {p.image && (
-                  <div className="bask-blog-img-wrap">
-                    <img src={p.image} alt={p.title} />
+                  <div className="bask-blog-img-wrap img-shimmer-wrapper">
+                    <img src={p.image} alt={p.title} className="img-animated-card" />
                   </div>
                 )}
                 <p className="bask-text-small text-muted mb-8" style={{ marginTop: 20 }}>

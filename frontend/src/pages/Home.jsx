@@ -15,9 +15,42 @@ const WORKS = [
   { id: '03', title: 'The Presidential Tower', category: 'Real Estate', count: '4 works', image: '1486406146926-c627a92ad1ab' },
 ];
 
+const BANNERS = [
+  {
+    id: 1,
+    badge: '🔥 FIRST 5 CLIENTS OFFER · 30% TO 40% OFF',
+    title: 'First 5 New Clients Get Up to 40% Off Strategy & Campaigns',
+    sub: 'Transform your brand growth with high-converting ads, digital strategy, & production. Only 2 remaining spots for this month.',
+    cta: 'Claim 40% Offer Now',
+    link: '/contact',
+    bg: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1600&q=80',
+  },
+  {
+    id: 2,
+    badge: 'OOH MEDIA PACK · BENGALURU',
+    title: 'Dominating Billboard & Outdoor Media Across Bangalore',
+    sub: 'High-visibility outdoor placements in Indiranagar, MG Road, & Koramangala. Turn street traffic into active brand search.',
+    cta: 'Explore OOH Packages',
+    link: '/services',
+    bg: 'https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?auto=format&fit=crop&w=1600&q=80',
+  },
+  {
+    id: 3,
+    badge: 'AI CONVERSION ENGINE',
+    title: 'Automated 24/7 AI Lead Assistant & Smart Campaign Funnels',
+    sub: 'Engage every website visitor with intelligent custom AI assistants trained directly on your service catalog.',
+    cta: 'Try AI Assistant',
+    link: '/case-studies',
+    bg: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=80',
+  }
+];
+
+
+
 export default function Home() {
   const [wordIdx, setWordIdx] = useState(0);
   const [fade, setFade] = useState(true);
+  const [slideIdx, setSlideIdx] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -29,6 +62,16 @@ export default function Home() {
     }, 2200);
     return () => clearInterval(timer);
   }, []);
+
+  // Hero Banner Carousel Auto-Play Timer
+  useEffect(() => {
+    const bannerTimer = setInterval(() => {
+      setSlideIdx(prev => (prev + 1) % BANNERS.length);
+    }, 5000);
+    return () => clearInterval(bannerTimer);
+  }, []);
+
+
 
   useSEO({
     title: 'Bask Creative — Built for impact.',
@@ -59,10 +102,19 @@ export default function Home() {
     },
   });
 
+  const activeBanner = BANNERS[slideIdx];
+
   return (
     <div className="bask-home">
+      {/* Rectangular Top Announcement Bar */}
+      <div className="bask-top-offer-bar">
+        <span className="bask-top-offer-pill">SPECIAL OFFER</span>
+        <span>🎉 First 5 New Clients Get <strong>30% to 40% OFF</strong> Full-Service Growth & Campaign Strategy!</span>
+        <Link to="/contact" className="bask-top-offer-btn">Claim 40% Offer →</Link>
+      </div>
+
       {/* Editorial Header Note */}
-      <div className="container" style={{ paddingTop: 40, paddingBottom: 60 }}>
+      <div className="container" style={{ paddingTop: 32, paddingBottom: 40 }}>
         <p className="bask-text-small text-muted fw-600">Independent creative agency · Est. 2018</p>
       </div>
 
@@ -79,15 +131,17 @@ export default function Home() {
             {/* Spinning circular text ring */}
             <svg className="bask-circle-spin" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <path id="circlePath" d="M100,100 m-75,0 a75,75 0 1,1 150,0 a75,75 0 1,1 -150,0" />
+                <path id="circlePath" d="M 100, 20 a 80,80 0 1,1 0,160 a 80,80 0 1,1 0,-160" />
               </defs>
-              <text fontSize="13" fontWeight="700" letterSpacing="6" fill="currentColor" textAnchor="middle" fontFamily="Inter, system-ui, sans-serif">
+              <text fontSize="11" fontWeight="700" letterSpacing="3" fill="currentColor" fontFamily="'Plus Jakarta Sans', system-ui, sans-serif">
                 <textPath href="#circlePath" startOffset="0%">BASK CREATIVE · BANGALORE · AD AGENCY · </textPath>
               </text>
             </svg>
-            {/* Static center logo */}
+            {/* Centered logo */}
             <div className="bask-circle-center">
-              <img src="/logo.png" alt="Bask Logo" style={{ width: '55%', height: 'auto', display: 'block' }} />
+              <div className="bask-logo-aura-glow">
+                <img src="/logo.png" alt="Bask Logo" className="bask-center-logo-img" />
+              </div>
             </div>
           </div>
 
@@ -107,6 +161,39 @@ export default function Home() {
         </div>
       </div>
 
+      {/* ── Flipkart-Style Hero Banner Carousel ── */}
+      <div className="container">
+        <div className="bask-carousel-container">
+          <div 
+            className="bask-carousel-slide" 
+            style={{ backgroundImage: `url(${activeBanner.bg})` }}
+          >
+            <div className="bask-carousel-overlay" />
+            <div className="bask-carousel-content">
+              <span className="bask-carousel-badge">{activeBanner.badge}</span>
+              <h2 className="bask-carousel-title">{activeBanner.title}</h2>
+              <p className="bask-carousel-sub">{activeBanner.sub}</p>
+              <Link to={activeBanner.link} className="btn btn--primary btn--lg">{activeBanner.cta} →</Link>
+            </div>
+          </div>
+
+          <div className="bask-carousel-dots">
+            {BANNERS.map((_, i) => (
+              <div 
+                key={i} 
+                className={`bask-carousel-dot ${i === slideIdx ? 'active' : ''}`} 
+                onClick={() => setSlideIdx(i)}
+              />
+            ))}
+          </div>
+
+          <div className="bask-carousel-controls">
+            <button className="bask-carousel-arrow" onClick={() => setSlideIdx(prev => (prev - 1 + BANNERS.length) % BANNERS.length)}>‹</button>
+            <button className="bask-carousel-arrow" onClick={() => setSlideIdx(prev => (prev + 1) % BANNERS.length)}>›</button>
+          </div>
+        </div>
+      </div>
+
       {/* ── Services Ticker ── */}
       <div className="bask-ticker-wrap bg-black text-white py-sm mt-lg">
         <div className="bask-ticker">
@@ -116,14 +203,16 @@ export default function Home() {
         </div>
       </div>
 
+
+
       {/* ── Recent Obsessions (Work) ── */}
-      <div className="container pt-lg pb-lg">
-        <div className="flex justify-between items-end mb-lg">
+      <div className="container pb-lg">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
           <div>
-            <p className="bask-text-small text-muted fw-600 mb-8">Peep Show / 2024</p>
-            <h2 className="bask-section-heading">Recent obsessions.</h2>
+            <p className="bask-text-small text-muted fw-600 mb-8">PEEP SHOW / 2024</p>
+            <h2 className="bask-section-heading" style={{ marginBottom: 0 }}>Recent obsessions.</h2>
           </div>
-          <Link to="/case-studies" className="bask-link-underline">View all work</Link>
+          <Link to="/case-studies" className="bask-link-underline" style={{ whiteSpace: 'nowrap', paddingBottom: 8 }}>View all work</Link>
         </div>
 
         <div className="bask-work-list">
@@ -136,16 +225,30 @@ export default function Home() {
                   <p className="bask-text-small text-muted">{w.category} · {w.count}</p>
                 </div>
               </div>
-              <div className="bask-work-visual">
-                <img src={`https://images.unsplash.com/photo-${w.image}?auto=format&fit=crop&w=1200&q=80`} alt={w.title} />
+              <div className="bask-work-visual img-shimmer-wrapper">
+                <img src={`https://images.unsplash.com/photo-${w.image}?auto=format&fit=crop&w=1200&q=80`} alt={w.title} className="img-animated-card" />
               </div>
             </div>
           ))}
         </div>
       </div>
 
+      {/* ── Full-Width Special Offer Banner ── */}
+      <div className="container">
+        <div className="bask-offer-banner-full">
+          <div className="bask-offer-banner-text">
+            <span className="bask-promo-tag" style={{ background: '#FFE600', color: '#000' }}>LIMITED CLIENT AVAILABILITY</span>
+            <h2 className="bask-offer-banner-title">First 5 Clients Get 30% to 40% Off Full Campaign Execution</h2>
+            <p className="bask-offer-banner-sub">Claim your early partner discount on branding, video production, performance ad scaling & AI automation.</p>
+          </div>
+          <div className="bask-offer-banner-cta">
+            <Link to="/contact" className="btn btn--primary btn--lg" style={{ background: '#FFE600', color: '#000' }}>Claim 40% Off Offer →</Link>
+          </div>
+        </div>
+      </div>
+
       {/* ── What We Do ── */}
-      <div className="container pt-lg pb-lg">
+      <div className="container pb-lg">
         <p className="bask-text-small text-muted fw-600 mb-8">What we do</p>
         <div className="grid-2 gap-lg align-start">
           <div>
@@ -205,3 +308,4 @@ export default function Home() {
     </div>
   );
 }
+

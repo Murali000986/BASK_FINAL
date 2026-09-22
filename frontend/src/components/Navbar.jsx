@@ -16,6 +16,7 @@ export default function Navbar() {
             <NavLink to="/about">About</NavLink>
             <NavLink to="/blog">Blog</NavLink>
             <NavLink to="/careers">Careers</NavLink>
+            <NavLink to="/showcase">Showcase</NavLink>
             <NavLink to="/faq">FAQ</NavLink>
             <Link to="/contact" className="bask-nav-cta">Write a brief</Link>
           </div>
@@ -33,6 +34,7 @@ export default function Navbar() {
         <NavLink to="/about" onClick={() => setIsOpen(false)}>About</NavLink>
         <NavLink to="/blog" onClick={() => setIsOpen(false)}>Blog</NavLink>
         <NavLink to="/careers" onClick={() => setIsOpen(false)}>Careers</NavLink>
+        <NavLink to="/showcase" onClick={() => setIsOpen(false)}>Showcase</NavLink>
         <NavLink to="/faq" onClick={() => setIsOpen(false)}>FAQ</NavLink>
         <Link to="/contact" className="btn btn--primary" onClick={() => setIsOpen(false)} style={{ marginTop: 24, justifyContent: 'center' }}>Write a brief</Link>
       </div>

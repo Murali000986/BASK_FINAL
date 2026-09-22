@@ -2,18 +2,16 @@ import { useState } from 'react';
 import { useSEO } from '../hooks/useSEO';
 
 const FAQS = [
-  { q: "Do you require long-term contracts?", a: "No. We start with risk-free pilots, transitioning into a rolling month-to-month commitment." },
-  { q: "What ad spend ranges do you manage?", a: "We manage multi-tier budgets across Meta, Google Ads, and LinkedIn — from multi-lakh to crore-plus per month." },
-  { q: "How exactly does your pricing work?", a: "Custom pricing. Growth Pilots are fixed-fee. Retainers have a flat base plus a performance bonus tied directly to revenue." },
-  { q: "Do you charge a percentage of ad spend?", a: "No. We focus on maximizing your ROAS, not maximizing our fee." },
-  { q: "What happens during the initial planning phase?", a: "7-14 days of Deep Discovery. We audit accounts, CRM setup, and present a 90-day action plan before spending a dime." },
-  { q: "Who owns the ad accounts and the data?", a: "You do. If you part ways with us, you keep all historical data and creatives." },
-  { q: "Who builds the creatives and landing pages?", a: "We do. Copy, video editing, and coding are all done in-house." },
-  { q: "How often do we get reports?", a: "24/7 client dashboard access, weekly async catch-ups, and a monthly deep strategy review." },
-  { q: "Do you work with bootstrapped startups?", a: "Yes, provided the product has market validation and strong unit economics." },
-  { q: "What if the 14-day pilot fails?", a: "You can walk away without obligation if we don't hit agreed leading indicators (CPA/CPL)." },
-  { q: "Do you handle B2B or B2C brands?", a: "Both. We have dedicated pods for high-ticket B2B SaaS and D2C e-commerce." },
-  { q: "Do you guarantee ROI?", a: "No one can guarantee exact ROAS due to market volatility. We guarantee our output quality, testing velocity, and absolute transparency." }
+  { q: "What exactly is the BASK Creative Engine?", a: "It's our all-in-one system for brand growth. Instead of juggling different agencies for design, ads, and video, we handle it all in one cohesive workflow. We build the brand, shoot the film, and run the ads." },
+  { q: "Are you a creative studio or a marketing agency?", a: "Both. We think like a creative studio but execute like a performance agency. Great design meets hard numbers." },
+  { q: "How do we start working together?", a: "Drop us a brief using the button top right. We'll review your brand and get back to you with a plan within 48 hours. If we're a match, we start with a 14-day discovery sprint." },
+  { q: "Do you lock clients into long-term contracts?", a: "Never. After our initial sprint, we work on a month-to-month basis. You stay because the results act as our contract." },
+  { q: "How does pricing work?", a: "We build custom pricing based on your needs. For ongoing work, we charge a flat base fee plus a performance bonus tied to the revenue we generate for you." },
+  { q: "Do you take a percentage of our ad spend?", a: "No. We charge for our work and performance, not for how much money you spend on ads. Our goal is growth, not just spending." },
+  { q: "What size budgets do you manage?", a: "We scale with you. From early validation budgets to crore-plus monthly ad spends. The core principles of the Creative Engine remain the same." },
+  { q: "Who actually makes the ads and videos?", a: "Our in-house team in Bangalore. We don't outsource. Our designers, writers, and filmmakers handle everything from start to finish." },
+  { q: "What if the initial pilot doesn't work out?", a: "You can walk away without any penalty. If we aren't hitting our agreed targets, we part ways nicely. No messy breakups." },
+  { q: "Who owns all the data and creative assets?", a: "You do. Your ad accounts, your data, your videos. We just run the engine. If you leave, you take it all with you." }
 ];
 
 const FAQ_SCHEMA = {
@@ -28,8 +26,8 @@ const FAQ_SCHEMA = {
 
 export default function Faq() {
   useSEO({
-    title: 'FAQ — Digital Marketing Agency Bangalore Questions Answered',
-    description: 'Common questions about BASK Growth Agency, Bangalore. How we work, pricing, ad spend ranges, reporting, and what happens during the 14-day pilot.',
+    title: 'FAQ — BASK Creative Engine | Plain English Answers',
+    description: 'Everything you need to know about BASK Creative Engine in plain English. How we work, pricing, structure, and deliverables.',
     path: '/faq',
     schema: FAQ_SCHEMA,
   });
@@ -39,12 +37,12 @@ export default function Faq() {
   return (
     <div className="bask-page">
       <div className="container pt-lg pb-lg">
-        <p className="bask-text-small text-muted fw-600 mb-8 animate-fade-up">Deep Dive</p>
+        <p className="bask-text-small text-muted fw-600 mb-8 animate-fade-up">FAQ · BASK Creative Engine</p>
         <h1 className="bask-hero-heading animate-fade-up delay-100 mb-24" style={{ maxWidth: 900 }}>
-          Everything you need to know.
+          No jargon.<br/>Just answers.
         </h1>
         <p className="bask-hero-paragraph animate-fade-up delay-200">
-          How we operate, how we bill, and how we scale.
+          Everything about how the BASK Creative Engine operates, delivered in plain, simple English.
         </p>
       </div>
 
@@ -72,6 +70,20 @@ export default function Faq() {
               </div>
             );
           })}
+        </div>
+
+        {/* CTA */}
+        <div style={{ marginTop: 80, padding: '56px 48px', background: 'var(--black)', borderRadius: 4, maxWidth: 900 }}>
+          <p className="bask-text-small fw-600 mb-8" style={{ color: 'var(--gray-400)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Have more questions?</p>
+          <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', marginBottom: 16 }}>
+            Let's talk.
+          </h2>
+          <p style={{ color: 'var(--gray-400)', fontSize: '1.15rem', marginBottom: 32, lineHeight: 1.6 }}>
+            Send us a brief. We'll give you a clear plan and honest numbers in 48 hours.
+          </p>
+          <a href="/contact" className="btn btn--primary btn--lg" style={{ background: '#fff', color: '#000' }}>
+            Write a brief →
+          </a>
         </div>
       </div>
     </div>
