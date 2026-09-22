@@ -76,14 +76,14 @@ export default function About() {
             <p className="bask-text-small fw-600 mb-8" style={{ color: '#FFE600', letterSpacing: 2 }}>OUR FOUNDATIONS</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24, marginTop: 32 }}>
               {[
-                { title: 'Core Purpose', icon: 'flag', bg: '#1e1b4b', text: 'To imprint lasting value on every brand we work with — so it glows brightest in the digital space and tells stories worth remembering.' },
-                { title: 'Core Values', icon: 'verified', bg: '#064e3b', text: 'Radical transparency. Creative craft over generic templates. Strategic speed over bureaucratic perfection. We deliver what we promise.' },
-                { title: 'Our Passion', icon: 'favorite', bg: '#7c2d12', text: 'We want to create success stories. We are not done when the service is delivered — we track the ripples it creates and double-down on what works.' },
+                { title: 'Core Purpose', icon: 'flag', bg: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)', text: 'To imprint lasting value on every brand we work with — so it glows brightest in the digital space and tells stories worth remembering.' },
+                { title: 'Core Values', icon: 'verified', bg: 'linear-gradient(135deg, #0891b2 0%, #0e7490 100%)', text: 'Radical transparency. Creative craft over generic templates. Strategic speed over bureaucratic perfection. We deliver what we promise.' },
+                { title: 'Our Passion', icon: 'favorite', bg: 'linear-gradient(135deg, #e11d48 0%, #be123c 100%)', text: 'We want to create success stories. We are not done when the service is delivered — we track the ripples it creates and double-down on what works.' },
               ].map(item => (
-                <div key={item.title} style={{ background: item.bg, borderRadius: 20, padding: '28px 24px' }}>
-                  <span className="material-icons" style={{ fontSize: 36, color: '#FFE600', marginBottom: 16, display: 'block' }}>{item.icon}</span>
-                  <h3 style={{ fontWeight: 800, fontSize: 18, marginBottom: 12, color: '#fff' }}>{item.title}</h3>
-                  <p style={{ fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.75)', margin: 0 }}>{item.text}</p>
+                <div key={item.title} style={{ background: item.bg, borderRadius: 20, padding: '36px 32px', minHeight: 240, display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  <span className="material-icons" style={{ fontSize: 40, color: 'rgba(255,255,255,0.9)', display: 'block' }}>{item.icon}</span>
+                  <h3 style={{ fontWeight: 800, fontSize: 20, margin: 0, color: '#fff' }}>{item.title}</h3>
+                  <p style={{ fontSize: 14, lineHeight: 1.9, color: 'rgba(255,255,255,0.8)', margin: 0 }}>{item.text}</p>
                 </div>
               ))}
             </div>
