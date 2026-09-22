@@ -242,7 +242,7 @@ app.post('/api/chat', async (req, res) => {
       const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
       const completion = await groq.chat.completions.create({
         messages: [{ role: "system", content: systemPrompt }, ...messages.map(m => ({ role: m.role, content: m.content }))],
-        model: "groq/compound-mini",
+        model: "llama3-8b-8192",
       });
       return res.json({ reply: completion.choices[0]?.message?.content });
     } else if (process.env.GEMINI_API_KEY) {
