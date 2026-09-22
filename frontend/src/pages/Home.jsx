@@ -385,18 +385,18 @@ export default function Home() {
               icon: 'terminal',
               tags: ['SEO', 'SMO', 'Web Design', 'Analytics', 'Dev'],
               desc: 'Our engineers and SEO specialists build the foundation — fast sites, deep technical audits, and data pipelines that track everything.',
-              bg: '#1e1b4b', accent: 'rgba(255,255,255,0.1)', color: '#fff',
+              bg: '#000', accent: 'rgba(255,230,0,0.18)', color: '#fff', iconColor: '#FFE600',
             },
             {
               label: 'Creative Team',
               icon: 'auto_awesome',
               tags: ['Content', 'Design', 'Social Media', 'Copywriting'],
               desc: 'Our creatives turn strategy into stories — compelling visuals, sharp copy, and social content that earns attention and drives action.',
-              bg: '#064e3b', accent: 'rgba(255,255,255,0.1)', color: '#fff',
+              bg: '#FFE600', accent: 'rgba(0,0,0,0.12)', color: '#000', iconColor: '#000',
             },
           ].map(t => (
             <div key={t.label} style={{ background: t.bg, color: t.color, borderRadius: 24, padding: '40px 36px', display: 'flex', flexDirection: 'column', gap: 20, minHeight: 280 }}>
-              <span className="material-icons" style={{ fontSize: 36, opacity: 0.85 }}>{t.icon}</span>
+              <span className="material-icons" style={{ fontSize: 36, color: t.iconColor || 'inherit', opacity: 0.9 }}>{t.icon}</span>
               <h3 style={{ fontWeight: 900, fontSize: 22, margin: 0 }}>{t.label}</h3>
               <p style={{ fontSize: 14, lineHeight: 1.8, opacity: 0.75, margin: 0, maxWidth: 340 }}>{t.desc}</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 'auto' }}>
