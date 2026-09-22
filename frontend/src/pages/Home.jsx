@@ -342,7 +342,7 @@ export default function Home() {
         <div style={{ background: '#111', borderRadius: 28, overflow: 'hidden', position: 'relative' }}>
           {/* Yellow accent stripe */}
           <div style={{ position: 'absolute', top: 0, left: 0, width: 6, height: '100%', background: '#FFE600', borderRadius: '28px 0 0 28px' }} />
-          <div className="container py-xl" style={{ paddingLeft: 56 }}>
+          <div className="container" style={{ paddingLeft: 56, paddingTop: 96, paddingBottom: 96 }}>
             <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 4, color: '#FFE600', marginBottom: 24 }}>WHY BASK?</p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
               <div>
