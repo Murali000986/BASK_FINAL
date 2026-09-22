@@ -70,20 +70,22 @@ export default function About() {
       </div>
 
       {/* ── Core Purpose / Values / Passion ── */}
-      <div style={{ margin: '0 20px', borderRadius: 28, overflow: 'hidden' }} className="py-xl">
-        <div style={{ background: '#111', borderRadius: 28 }} className="py-xl">
-          <div className="container">
-            <p className="bask-text-small fw-600 mb-8" style={{ color: '#FFE600', letterSpacing: 2 }}>OUR FOUNDATIONS</p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24, marginTop: 32 }}>
+      <div style={{ margin: '0 20px', borderRadius: 28 }} className="py-xl">
+        <div style={{ background: '#111', borderRadius: 28, overflow: 'hidden', position: 'relative' }}>
+          {/* Yellow accent stripe */}
+          <div style={{ position: 'absolute', top: 0, left: 0, width: 6, height: '100%', background: '#FFE600', borderRadius: '28px 0 0 28px' }} />
+          <div className="container" style={{ paddingLeft: 56, paddingTop: 96, paddingBottom: 96 }}>
+            <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 4, color: '#FFE600', marginBottom: 32 }}>OUR FOUNDATIONS</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
               {[
                 { title: 'Core Purpose', icon: 'flag', accent: '#7c3aed', text: 'To imprint lasting value on every brand we work with — so it glows brightest in the digital space and tells stories worth remembering.' },
                 { title: 'Core Values', icon: 'verified', accent: '#0891b2', text: 'Radical transparency. Creative craft over generic templates. Strategic speed over bureaucratic perfection. We deliver what we promise.' },
                 { title: 'Our Passion', icon: 'favorite', accent: '#e11d48', text: 'We want to create success stories. We are not done when the service is delivered — we track the ripples it creates and double-down on what works.' },
               ].map(item => (
-                <div key={item.title} style={{ background: '#111', borderRadius: 20, padding: '36px 32px', minHeight: 240, display: 'flex', flexDirection: 'column', gap: 16, borderTop: `4px solid ${item.accent}` }}>
+                <div key={item.title} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: 20, padding: '36px 32px', minHeight: 240, display: 'flex', flexDirection: 'column', gap: 16, borderTop: `4px solid ${item.accent}` }}>
                   <span className="material-icons" style={{ fontSize: 40, color: item.accent, display: 'block' }}>{item.icon}</span>
                   <h3 style={{ fontWeight: 800, fontSize: 20, margin: 0, color: '#fff' }}>{item.title}</h3>
-                  <p style={{ fontSize: 14, lineHeight: 1.9, color: 'rgba(255,255,255,0.75)', margin: 0 }}>{item.text}</p>
+                  <p style={{ fontSize: 14, lineHeight: 1.9, color: 'rgba(255,255,255,0.7)', margin: 0 }}>{item.text}</p>
                 </div>
               ))}
             </div>
