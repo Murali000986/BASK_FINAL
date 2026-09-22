@@ -338,42 +338,44 @@ export default function Home() {
       </div>
 
       {/* ── Why BASK ── */}
-      <div style={{ background: 'var(--black)', color: 'var(--white)', overflow: 'hidden', position: 'relative' }}>
-        {/* Yellow accent stripe */}
-        <div style={{ position: 'absolute', top: 0, left: 0, width: 6, height: '100%', background: '#FFE600' }} />
-        <div className="container py-xl" style={{ paddingLeft: 48 }}>
-          <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 4, color: '#FFE600', marginBottom: 24 }}>WHY BASK?</p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
-            <div>
-              <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 900, lineHeight: 1.1, margin: '0 0 28px', color: '#fff' }}>
-                Every brand<br />treated as a<br /><em style={{ fontStyle: 'italic', color: '#FFE600' }}>unique project.</em>
-              </h2>
-              <p style={{ fontSize: 15, lineHeight: 1.9, color: 'rgba(255,255,255,0.65)', maxWidth: 420, marginBottom: 36 }}>
-                There are many marketing agencies in Bangalore. We differentiate by treating each company differently — a beauty brand needs a completely different approach than an ISP. At BASK, every strategy is built from scratch.
-              </p>
-              <Link to="/contact" className="btn btn--primary btn--lg" style={{ background: '#FFE600', color: '#000', fontWeight: 800 }}>
-                Book a Free Strategy Call →
-              </Link>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              {[
-                ['01', 'Tailor-made strategies. No cookie-cutter plans.'],
-                ['02', 'Zero long-term lock-ins. Cancel anytime.'],
-                ['03', 'Radical dashboard transparency. Always.'],
-                ['04', 'Performance bonus tied to your revenue.'],
-              ].map(([n, t]) => (
-                <div key={n} style={{ display: 'flex', gap: 20, alignItems: 'center', padding: '22px 0', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                  <span style={{ fontWeight: 900, fontSize: 28, color: 'rgba(255,255,255,0.12)', lineHeight: 1, flexShrink: 0, width: 40 }}>{n}</span>
-                  <span style={{ fontSize: 15, fontWeight: 600, color: 'rgba(255,255,255,0.9)', lineHeight: 1.5 }}>{t}</span>
-                </div>
-              ))}
+      <div style={{ margin: '0 20px 0', borderRadius: 28 }} className="py-xl" >
+        <div style={{ background: '#111', borderRadius: 28, overflow: 'hidden', position: 'relative' }}>
+          {/* Yellow accent stripe */}
+          <div style={{ position: 'absolute', top: 0, left: 0, width: 6, height: '100%', background: '#FFE600', borderRadius: '28px 0 0 28px' }} />
+          <div className="container py-xl" style={{ paddingLeft: 56 }}>
+            <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 4, color: '#FFE600', marginBottom: 24 }}>WHY BASK?</p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
+              <div>
+                <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 900, lineHeight: 1.1, margin: '0 0 28px', color: '#fff' }}>
+                  Every brand<br />treated as a<br /><em style={{ fontStyle: 'italic', color: '#FFE600' }}>unique project.</em>
+                </h2>
+                <p style={{ fontSize: 15, lineHeight: 1.9, color: 'rgba(255,255,255,0.65)', maxWidth: 420, marginBottom: 36 }}>
+                  There are many marketing agencies in Bangalore. We differentiate by treating each company differently — a beauty brand needs a completely different approach than an ISP. At BASK, every strategy is built from scratch.
+                </p>
+                <Link to="/contact" className="btn btn--primary btn--lg" style={{ background: '#FFE600', color: '#000', fontWeight: 800 }}>
+                  Book a Free Strategy Call →
+                </Link>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {[
+                  ['01', 'Tailor-made strategies. No cookie-cutter plans.'],
+                  ['02', 'Zero long-term lock-ins. Cancel anytime.'],
+                  ['03', 'Radical dashboard transparency. Always.'],
+                  ['04', 'Performance bonus tied to your revenue.'],
+                ].map(([n, t]) => (
+                  <div key={n} style={{ display: 'flex', gap: 20, alignItems: 'center', padding: '22px 0', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <span style={{ fontWeight: 900, fontSize: 28, color: 'rgba(255,255,255,0.12)', lineHeight: 1, flexShrink: 0, width: 40 }}>{n}</span>
+                    <span style={{ fontSize: 15, fontWeight: 600, color: 'rgba(255,255,255,0.9)', lineHeight: 1.5 }}>{t}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* ── The Team ── */}
-      <div className="container py-xl">
+      <div className="container" style={{ paddingTop: 72, paddingBottom: 64 }}>
         <p className="bask-text-small text-muted fw-600 mb-8">THE TEAM</p>
         <h2 className="bask-section-heading mb-48">Two teams. One vision.</h2>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
@@ -383,23 +385,23 @@ export default function Home() {
               icon: 'terminal',
               tags: ['SEO', 'SMO', 'Web Design', 'Analytics', 'Dev'],
               desc: 'Our engineers and SEO specialists build the foundation — fast sites, deep technical audits, and data pipelines that track everything.',
-              bg: '#0f172a', color: '#fff',
+              bg: '#1e1b4b', accent: 'rgba(255,255,255,0.1)', color: '#fff',
             },
             {
               label: 'Creative Team',
               icon: 'auto_awesome',
               tags: ['Content', 'Design', 'Social Media', 'Copywriting'],
               desc: 'Our creatives turn strategy into stories — compelling visuals, sharp copy, and social content that earns attention and drives action.',
-              bg: '#FFE600', color: '#000',
+              bg: '#064e3b', accent: 'rgba(255,255,255,0.1)', color: '#fff',
             },
           ].map(t => (
-            <div key={t.label} style={{ background: t.bg, color: t.color, borderRadius: 20, padding: '40px 36px', display: 'flex', flexDirection: 'column', gap: 20, minHeight: 280 }}>
+            <div key={t.label} style={{ background: t.bg, color: t.color, borderRadius: 24, padding: '40px 36px', display: 'flex', flexDirection: 'column', gap: 20, minHeight: 280 }}>
               <span className="material-icons" style={{ fontSize: 36, opacity: 0.85 }}>{t.icon}</span>
               <h3 style={{ fontWeight: 900, fontSize: 22, margin: 0 }}>{t.label}</h3>
               <p style={{ fontSize: 14, lineHeight: 1.8, opacity: 0.75, margin: 0, maxWidth: 340 }}>{t.desc}</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 'auto' }}>
                 {t.tags.map(tag => (
-                  <span key={tag} style={{ background: t.bg === '#FFE600' ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.1)', padding: '4px 12px', borderRadius: 99, fontSize: 12, fontWeight: 700 }}>{tag}</span>
+                  <span key={tag} style={{ background: t.accent, padding: '4px 12px', borderRadius: 99, fontSize: 12, fontWeight: 700 }}>{tag}</span>
                 ))}
               </div>
             </div>

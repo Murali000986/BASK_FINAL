@@ -70,21 +70,23 @@ export default function About() {
       </div>
 
       {/* ── Core Purpose / Values / Passion ── */}
-      <div style={{ background: 'var(--black)', color: 'var(--white)' }} className="py-xl">
-        <div className="container">
-          <p className="bask-text-small fw-600 mb-8" style={{ color: '#FFE600', letterSpacing: 2 }}>OUR FOUNDATIONS</p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24, marginTop: 32 }}>
-            {[
-              { title: 'Core Purpose', icon: 'flag', text: 'To imprint lasting value on every brand we work with — so it glows brightest in the digital space and tells stories worth remembering.' },
-              { title: 'Core Values', icon: 'verified', text: 'Radical transparency. Creative craft over generic templates. Strategic speed over bureaucratic perfection. We deliver what we promise.' },
-              { title: 'Our Passion', icon: 'favorite', text: 'We want to create success stories. We are not done when the service is delivered — we track the ripples it creates and double-down on what works.' },
-            ].map(item => (
-              <div key={item.title} style={{ background: 'rgba(255,255,255,0.06)', borderRadius: 16, padding: '28px 24px' }}>
-                <span className="material-icons" style={{ fontSize: 36, color: '#FFE600', marginBottom: 16, display: 'block' }}>{item.icon}</span>
-                <h3 style={{ fontWeight: 800, fontSize: 18, marginBottom: 12 }}>{item.title}</h3>
-                <p style={{ fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.75)', margin: 0 }}>{item.text}</p>
-              </div>
-            ))}
+      <div style={{ margin: '0 20px', borderRadius: 28, overflow: 'hidden' }} className="py-xl">
+        <div style={{ background: '#111', borderRadius: 28 }} className="py-xl">
+          <div className="container">
+            <p className="bask-text-small fw-600 mb-8" style={{ color: '#FFE600', letterSpacing: 2 }}>OUR FOUNDATIONS</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24, marginTop: 32 }}>
+              {[
+                { title: 'Core Purpose', icon: 'flag', bg: '#1e1b4b', text: 'To imprint lasting value on every brand we work with — so it glows brightest in the digital space and tells stories worth remembering.' },
+                { title: 'Core Values', icon: 'verified', bg: '#064e3b', text: 'Radical transparency. Creative craft over generic templates. Strategic speed over bureaucratic perfection. We deliver what we promise.' },
+                { title: 'Our Passion', icon: 'favorite', bg: '#7c2d12', text: 'We want to create success stories. We are not done when the service is delivered — we track the ripples it creates and double-down on what works.' },
+              ].map(item => (
+                <div key={item.title} style={{ background: item.bg, borderRadius: 20, padding: '28px 24px' }}>
+                  <span className="material-icons" style={{ fontSize: 36, color: '#FFE600', marginBottom: 16, display: 'block' }}>{item.icon}</span>
+                  <h3 style={{ fontWeight: 800, fontSize: 18, marginBottom: 12, color: '#fff' }}>{item.title}</h3>
+                  <p style={{ fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.75)', margin: 0 }}>{item.text}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
