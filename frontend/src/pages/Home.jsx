@@ -291,76 +291,80 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── What We Offer (Service Categories) ── */}
-      <div className="container pb-lg">
-        <p className="bask-text-small text-muted fw-600 mb-8">OUR OFFERINGS</p>
-        <h2 className="bask-section-heading mb-32">Services that move the needle.</h2>
-        <div className="grid-3 gap-lg" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
+      {/* ── What We Offer ── */}
+      <div className="container pb-xl pt-lg">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
+          <div>
+            <p className="bask-text-small text-muted fw-600 mb-8">OUR OFFERINGS</p>
+            <h2 className="bask-section-heading" style={{ marginBottom: 0 }}>Services that move the needle.</h2>
+          </div>
+          <Link to="/services" className="bask-link-underline" style={{ paddingBottom: 8 }}>View all services</Link>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {[
             {
-              title: 'Internet Marketing Services',
-              desc: 'ROI-driven digital strategies to grow your business online through SEO, email, and analytics.',
-              items: ['SEO Services', 'Conversion Rate Optimization', 'Email Marketing', 'Website Analytics', 'SEO Website Audits'],
-              icon: 'trending_up',
+              num: '01', title: 'Internet Marketing', color: '#6EE7B7',
+              items: 'SEO · CRO · Email Marketing · Analytics · Audits',
+              desc: 'ROI-driven digital strategies built around your funnel — not guesswork.',
             },
             {
-              title: 'Advertising Agency Services',
-              desc: 'Reach the right audience at the right time with high-performance ad campaigns.',
-              items: ['Google Ads', 'Display Ads', 'Video Ads', 'LinkedIn Ads', 'Shopping Ads'],
-              icon: 'campaign',
+              num: '02', title: 'Advertising Agency', color: '#93C5FD',
+              items: 'Google Ads · Display · Video · LinkedIn · Shopping',
+              desc: 'Reach the right audience at the right time with campaigns that actually convert.',
             },
             {
-              title: 'Marketing Consultant',
-              desc: 'Data-backed growth strategies tailored for your industry and funnel stage.',
-              items: ['Marketing Consulting', 'Digital Strategy', 'Performance Audits'],
-              icon: 'insights',
+              num: '03', title: 'Marketing Consulting', color: '#FCA5A5',
+              items: 'Strategy · Digital Roadmap · Performance Audits',
+              desc: 'Data-backed consulting tailored to your industry and growth stage.',
             },
             {
-              title: 'Website Designer',
-              desc: 'Build stunning, conversion-optimized websites designed for local and mobile users.',
-              items: ['Website Design', 'Landing Page Design', 'UX/UI Design', 'Technical SEO Setup'],
-              icon: 'web',
+              num: '04', title: 'Website Design', color: '#FDE68A',
+              items: 'Web Design · Landing Pages · UX/UI · Technical SEO',
+              desc: 'Conversion-optimised websites built for performance and mobile-first users.',
             },
-          ].map((cat) => (
-            <div key={cat.title} style={{ background: 'var(--gray-50)', borderRadius: 16, padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: 16, border: '1px solid var(--gray-200)', transition: 'box-shadow 0.2s', cursor: 'default' }}
-              onMouseEnter={e => e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.10)'}
-              onMouseLeave={e => e.currentTarget.style.boxShadow = 'none'}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span className="material-icons" style={{ fontSize: 28, color: 'var(--black)' }}>{cat.icon}</span>
-                <h3 style={{ fontSize: 17, fontWeight: 700, margin: 0 }}>{cat.title}</h3>
+          ].map((cat, i, arr) => (
+            <div key={cat.num} style={{ display: 'grid', gridTemplateColumns: '56px 1fr 1fr auto', gap: 24, alignItems: 'center', padding: '28px 0', borderTop: '1px solid var(--gray-200)', borderBottom: i === arr.length - 1 ? '1px solid var(--gray-200)' : 'none' }}>
+              <span style={{ fontWeight: 900, fontSize: 13, color: 'var(--gray-400)', letterSpacing: 1 }}>{cat.num}</span>
+              <div>
+                <h3 style={{ fontWeight: 800, fontSize: 20, margin: 0 }}>{cat.title}</h3>
+                <p style={{ margin: '6px 0 0', fontSize: 13, color: 'var(--gray-500)', letterSpacing: 0.3 }}>{cat.items}</p>
               </div>
-              <p className="bask-text-small text-muted" style={{ lineHeight: 1.6, margin: 0 }}>{cat.desc}</p>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {cat.items.map(item => (
-                  <li key={item} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--gray-600)' }}>
-                    <span className="material-icons" style={{ fontSize: 14, color: 'var(--black)' }}>check_circle</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <p style={{ fontSize: 14, color: 'var(--gray-600)', lineHeight: 1.6, margin: 0 }}>{cat.desc}</p>
+              <span style={{ display: 'inline-block', width: 12, height: 12, borderRadius: '50%', background: cat.color, flexShrink: 0 }} />
             </div>
           ))}
         </div>
       </div>
 
       {/* ── Why BASK ── */}
-      <div style={{ background: 'var(--black)', color: 'var(--white)' }} className="py-xl">
-        <div className="container">
-          <div className="grid-2 gap-xl align-start">
+      <div style={{ background: 'var(--black)', color: 'var(--white)', overflow: 'hidden', position: 'relative' }}>
+        {/* Yellow accent stripe */}
+        <div style={{ position: 'absolute', top: 0, left: 0, width: 6, height: '100%', background: '#FFE600' }} />
+        <div className="container py-xl" style={{ paddingLeft: 48 }}>
+          <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 4, color: '#FFE600', marginBottom: 24 }}>WHY BASK?</p>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
             <div>
-              <p className="bask-text-small fw-600 mb-8" style={{ color: '#FFE600', letterSpacing: 2 }}>WHY BASK?</p>
-              <h2 className="bask-section-heading mb-24" style={{ color: 'var(--white)' }}>We treat every brand as a unique project.</h2>
-              <p style={{ fontSize: 16, lineHeight: 1.8, color: 'rgba(255,255,255,0.75)', maxWidth: 480 }}>
-                There are a lot of online marketing companies out there offering a bunch of digital marketing services in Bangalore. So why choose us over them? We treat each company as a unique project — the approach for each is different. A beauty care company can't be dealt with the same way as an ISP. At BASK, we create our own unique strategies to boost your brand and get it to the top.
+              <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 900, lineHeight: 1.1, margin: '0 0 28px', color: '#fff' }}>
+                Every brand<br />treated as a<br /><em style={{ fontStyle: 'italic', color: '#FFE600' }}>unique project.</em>
+              </h2>
+              <p style={{ fontSize: 15, lineHeight: 1.9, color: 'rgba(255,255,255,0.65)', maxWidth: 420, marginBottom: 36 }}>
+                There are many marketing agencies in Bangalore. We differentiate by treating each company differently — a beauty brand needs a completely different approach than an ISP. At BASK, every strategy is built from scratch.
               </p>
-              <Link to="/contact" className="btn btn--primary btn--lg" style={{ marginTop: 32, background: '#FFE600', color: '#000', display: 'inline-block' }}>Start a Strategy Call →</Link>
+              <Link to="/contact" className="btn btn--primary btn--lg" style={{ background: '#FFE600', color: '#000', fontWeight: 800 }}>
+                Book a Free Strategy Call →
+              </Link>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-              {['Tailor-made strategies — no cookie-cutter plans.', 'Zero long-term lock-ins. Cancel anytime.', 'Radical dashboard transparency. Always.', 'Performance bonus tied to your revenue, not just effort.'].map((pt, i) => (
-                <div key={i} style={{ display: 'flex', gap: 16, alignItems: 'flex-start', background: 'rgba(255,255,255,0.06)', borderRadius: 12, padding: '20px 20px' }}>
-                  <span style={{ fontWeight: 900, fontSize: 22, color: '#FFE600', lineHeight: 1 }}>0{i + 1}</span>
-                  <p style={{ margin: 0, fontSize: 15, color: 'rgba(255,255,255,0.85)', lineHeight: 1.6 }}>{pt}</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {[
+                ['01', 'Tailor-made strategies. No cookie-cutter plans.'],
+                ['02', 'Zero long-term lock-ins. Cancel anytime.'],
+                ['03', 'Radical dashboard transparency. Always.'],
+                ['04', 'Performance bonus tied to your revenue.'],
+              ].map(([n, t]) => (
+                <div key={n} style={{ display: 'flex', gap: 20, alignItems: 'center', padding: '22px 0', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  <span style={{ fontWeight: 900, fontSize: 28, color: 'rgba(255,255,255,0.12)', lineHeight: 1, flexShrink: 0, width: 40 }}>{n}</span>
+                  <span style={{ fontSize: 15, fontWeight: 600, color: 'rgba(255,255,255,0.9)', lineHeight: 1.5 }}>{t}</span>
                 </div>
               ))}
             </div>
@@ -371,51 +375,68 @@ export default function Home() {
       {/* ── The Team ── */}
       <div className="container py-xl">
         <p className="bask-text-small text-muted fw-600 mb-8">THE TEAM</p>
-        <div className="grid-2 gap-lg align-start">
-          <div>
-            <h2 className="bask-section-heading mb-16">Talent meets creativity.</h2>
-            <p style={{ fontSize: 16, lineHeight: 1.8, color: 'var(--gray-600)' }}>
-              We are a Digital Marketing Agency in Bangalore that consists of a talented, creative team on board. Our technical team handles SEO, SMO, and web design, while our creative team handles content, creative design, and social media interaction. Both teams work in sync to help any brand we work with achieve real results.
-            </p>
-          </div>
-          <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
-            {[
-              { icon: 'code', label: 'Technical Team', desc: 'SEO · SMO · Web Design · Analytics' },
-              { icon: 'brush', label: 'Creative Team', desc: 'Content · Design · Social Media' },
-            ].map(t => (
-              <div key={t.label} style={{ flex: '1 1 200px', background: 'var(--gray-50)', border: '1px solid var(--gray-200)', borderRadius: 16, padding: '28px 24px', textAlign: 'center' }}>
-                <span className="material-icons" style={{ fontSize: 40, marginBottom: 12, display: 'block' }}>{t.icon}</span>
-                <h3 style={{ fontWeight: 700, fontSize: 16, marginBottom: 8 }}>{t.label}</h3>
-                <p className="bask-text-small text-muted">{t.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Achievements + Pocket Friendly ── */}
-      <div style={{ background: 'var(--gray-50)', borderTop: '1px solid var(--gray-200)', borderBottom: '1px solid var(--gray-200)' }} className="py-xl">
-        <div className="container">
-          <div className="grid-2 gap-xl align-start">
-            <div>
-              <p className="bask-text-small text-muted fw-600 mb-8">OUR ACHIEVEMENTS</p>
-              <h2 className="bask-section-heading mb-16">A portfolio you'd recognise.</h2>
-              <p style={{ fontSize: 16, lineHeight: 1.8, color: 'var(--gray-600)', marginBottom: 20 }}>
-                Our client portfolio includes the likes of Tata Housing, Orient Cement, Restolex, Ziphop, Acharya Bangalore B-School, Foundation School, and other very familiar names. Our clients are amazed by the way their brands are getting boosted in the digital space.
-              </p>
-              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-                {['Tata Housing', 'Orient Cement', 'Restolex', 'Acharya B-School'].map(c => (
-                  <span key={c} style={{ background: 'var(--white)', border: '1px solid var(--gray-200)', borderRadius: 8, padding: '6px 14px', fontSize: 13, fontWeight: 600 }}>{c}</span>
+        <h2 className="bask-section-heading mb-48">Two teams. One vision.</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+          {[
+            {
+              label: 'Technical Team',
+              icon: 'terminal',
+              tags: ['SEO', 'SMO', 'Web Design', 'Analytics', 'Dev'],
+              desc: 'Our engineers and SEO specialists build the foundation — fast sites, deep technical audits, and data pipelines that track everything.',
+              bg: '#0f172a', color: '#fff',
+            },
+            {
+              label: 'Creative Team',
+              icon: 'auto_awesome',
+              tags: ['Content', 'Design', 'Social Media', 'Copywriting'],
+              desc: 'Our creatives turn strategy into stories — compelling visuals, sharp copy, and social content that earns attention and drives action.',
+              bg: '#FFE600', color: '#000',
+            },
+          ].map(t => (
+            <div key={t.label} style={{ background: t.bg, color: t.color, borderRadius: 20, padding: '40px 36px', display: 'flex', flexDirection: 'column', gap: 20, minHeight: 280 }}>
+              <span className="material-icons" style={{ fontSize: 36, opacity: 0.85 }}>{t.icon}</span>
+              <h3 style={{ fontWeight: 900, fontSize: 22, margin: 0 }}>{t.label}</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.8, opacity: 0.75, margin: 0, maxWidth: 340 }}>{t.desc}</p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 'auto' }}>
+                {t.tags.map(tag => (
+                  <span key={tag} style={{ background: t.bg === '#FFE600' ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.1)', padding: '4px 12px', borderRadius: 99, fontSize: 12, fontWeight: 700 }}>{tag}</span>
                 ))}
               </div>
             </div>
-            <div style={{ background: 'var(--black)', color: 'var(--white)', borderRadius: 20, padding: '36px 32px', textAlign: 'center' }}>
-              <span className="material-icons" style={{ fontSize: 48, color: '#FFE600', marginBottom: 16, display: 'block' }}>savings</span>
-              <h3 style={{ fontWeight: 800, fontSize: 22, marginBottom: 12 }}>Pocket-Friendly Packages</h3>
-              <p style={{ fontSize: 15, lineHeight: 1.8, color: 'rgba(255,255,255,0.75)', marginBottom: 24 }}>
-                We are one of the top digital marketing agencies in Bangalore yet have the most attractive and affordable packages. You pay only for the specific services you request — nothing more, nothing less.
+          ))}
+        </div>
+        <p style={{ fontSize: 15, lineHeight: 1.8, color: 'var(--gray-600)', maxWidth: 600, marginTop: 32 }}>
+          Both teams work in complete sync — so when your ad runs, the landing page converts, and when the SEO ranks, the content retains. Nothing falls through the cracks.
+        </p>
+      </div>
+
+      {/* ── Achievements + Pocket Friendly ── */}
+      <div style={{ background: 'var(--gray-50)', borderTop: '1px solid var(--gray-200)' }} className="py-xl">
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: 64, alignItems: 'start' }}>
+            <div>
+              <p className="bask-text-small text-muted fw-600 mb-8">OUR ACHIEVEMENTS</p>
+              <h2 className="bask-section-heading mb-20">A portfolio you'd recognise.</h2>
+              <p style={{ fontSize: 16, lineHeight: 1.8, color: 'var(--gray-600)', marginBottom: 32, maxWidth: 480 }}>
+                Our client portfolio includes the likes of Tata Housing, Orient Cement, Restolex, Ziphop, Acharya Bangalore B-School, Foundation School, and other recognisable names — all amazed by the results BASK delivered.
               </p>
-              <Link to="/contact" className="btn btn--primary btn--lg" style={{ background: '#FFE600', color: '#000' }}>Get a Custom Quote →</Link>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+                {['Tata Housing', 'Orient Cement', 'Restolex', 'Ziphop', 'Acharya B-School', 'Foundation School'].map(c => (
+                  <span key={c} style={{ background: '#fff', border: '1px solid var(--gray-200)', borderRadius: 10, padding: '8px 18px', fontSize: 13, fontWeight: 700, letterSpacing: 0.3 }}>{c}</span>
+                ))}
+              </div>
+            </div>
+            <div style={{ background: 'var(--black)', color: '#fff', borderRadius: 24, padding: '40px 36px' }}>
+              <div style={{ width: 52, height: 52, background: '#FFE600', borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}>
+                <span className="material-icons" style={{ fontSize: 28, color: '#000' }}>savings</span>
+              </div>
+              <h3 style={{ fontWeight: 900, fontSize: 22, marginBottom: 16, lineHeight: 1.2 }}>Pocket-Friendly<br />Packages</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.9, color: 'rgba(255,255,255,0.65)', marginBottom: 32 }}>
+                Top-tier digital marketing in Bangalore, priced for real businesses. You pay only for the services you actually need. No bundle bloat.
+              </p>
+              <Link to="/contact" className="btn btn--primary btn--lg" style={{ background: '#FFE600', color: '#000', fontWeight: 800, display: 'block', textAlign: 'center' }}>
+                Get a Custom Quote →
+              </Link>
             </div>
           </div>
         </div>
