@@ -16,6 +16,9 @@ import AdminDashboard from './pages/AdminDashboard';
 import ChatWidget from './components/ChatWidget';
 
 import Showcase from './pages/Showcase';
+import SeoLanding from './pages/services/SeoLanding';
+import GoogleAdsLanding from './pages/services/GoogleAdsLanding';
+import MetaAdsLanding from './pages/services/MetaAdsLanding';
 
 function WithLayout({ children }) {
   return (
@@ -40,6 +43,9 @@ export default function App() {
         <Route path="/" element={<WithLayout><Home /></WithLayout>} />
         <Route path="/showcase" element={<WithLayout><Showcase /></WithLayout>} />
         <Route path="/services" element={<WithLayout><Services /></WithLayout>} />
+        <Route path="/services/seo-company-bangalore" element={<WithLayout><SeoLanding /></WithLayout>} />
+        <Route path="/services/google-ads-agency-bangalore" element={<WithLayout><GoogleAdsLanding /></WithLayout>} />
+        <Route path="/services/meta-ads-agency-bangalore" element={<WithLayout><MetaAdsLanding /></WithLayout>} />
         <Route path="/case-studies" element={<WithLayout><CaseStudies /></WithLayout>} />
         <Route path="/about" element={<WithLayout><About /></WithLayout>} />
         <Route path="/contact" element={<WithLayout><Contact /></WithLayout>} />

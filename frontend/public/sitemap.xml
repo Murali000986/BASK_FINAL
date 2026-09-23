@@ -6,56 +6,84 @@
     <loc>https://www.baskgrowth.xyz/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-23</lastmod>
   </url>
 
   <url>
     <loc>https://www.baskgrowth.xyz/services</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-23</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.baskgrowth.xyz/services/seo-company-bangalore</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-09-23</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.baskgrowth.xyz/services/google-ads-agency-bangalore</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-09-23</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.baskgrowth.xyz/services/meta-ads-agency-bangalore</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-09-23</lastmod>
   </url>
 
   <url>
     <loc>https://www.baskgrowth.xyz/case-studies</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-23</lastmod>
   </url>
 
   <url>
     <loc>https://www.baskgrowth.xyz/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-23</lastmod>
   </url>
 
   <url>
     <loc>https://www.baskgrowth.xyz/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-23</lastmod>
   </url>
 
   <url>
     <loc>https://www.baskgrowth.xyz/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-23</lastmod>
   </url>
 
   <url>
     <loc>https://www.baskgrowth.xyz/faq</loc>
     <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-09-23</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.baskgrowth.xyz/showcase</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-23</lastmod>
   </url>
 
   <url>
     <loc>https://www.baskgrowth.xyz/careers</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-23</lastmod>
   </url>
 
 </urlset>

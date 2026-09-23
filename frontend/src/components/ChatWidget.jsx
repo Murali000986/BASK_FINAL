@@ -8,18 +8,34 @@ import thinkingGif from '../assets/ai/thinking.gif';
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'Hi, I am BASK. Ask me anything about our services, pricing, or methodology.' }
-  ]);
+  const [messages, setMessages] = useState(() => {
+    try {
+      const saved = sessionStorage.getItem('bask_chat_msgs');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return [{ role: 'assistant', content: 'Hi, I am BASK. Ask me anything about our services, pricing, or methodology.' }];
+  });
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    sessionStorage.setItem('bask_chat_msgs', JSON.stringify(messages));
+  }, [messages]);
 
   const PRESETS = [
     { label: 'About Services', reply: 'We manage full-funnel digital growth: Paid Media (Meta, Google, TikTok, LinkedIn), Technical SEO, CRO (Landing Pages), and advanced Email Lifecycle marketing.' },
     { label: 'Pricing Model', reply: 'We don\'t do cookie-cutter pricing. We run custom fixed-fee pilots first, and then transition to a flat retainer plus a performance bonus tied directly to revenue growth.' },
     { label: 'Why BASK?', reply: 'We offer zero long-term contracts, radical dashboard transparency, and we never execute blindly without building a 90-day action plan with you first.' }
   ];
+
+  const clearChat = () => {
+    setMessages([{ role: 'assistant', content: 'Hi, I am BASK. Ask me anything about our services, pricing, or methodology.' }]);
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+  };
 
   const handleQuickReply = (preset) => {
     setMessages(prev => [
@@ -76,16 +92,31 @@ export default function ChatWidget() {
               <img src={currentGif} alt="AI Avatar" style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover', transform: 'scale(1.2)' }} />
               <span style={{ fontWeight: 700 }}>BASK AI</span>
             </div>
-            <button className="chat-close" onClick={() => setOpen(false)}>
-              <span className="material-icons" style={{ fontSize: 18 }}>close</span>
-            </button>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button className="chat-close" onClick={clearChat} title="Clear Chat">
+                <span className="material-icons" style={{ fontSize: 18 }}>delete_outline</span>
+              </button>
+              <button className="chat-close" onClick={() => setOpen(false)} title="Close">
+                <span className="material-icons" style={{ fontSize: 18 }}>close</span>
+              </button>
+            </div>
           </div>
           
           <div className="chat-body">
             {messages.map((m, i) => (
               <div key={i} className={`chat-message chat-message--${m.role}`}>
                 {m.role === 'assistant'
-                  ? <ReactMarkdown>{m.content}</ReactMarkdown>
+                  ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <ReactMarkdown>{m.content}</ReactMarkdown>
+                      <button 
+                        onClick={() => copyToClipboard(m.content)}
+                        style={{ alignSelf: 'flex-start', background: 'transparent', border: 'none', cursor: 'pointer', padding: '0 4px', opacity: 0.5, fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px', color: 'inherit' }}
+                      >
+                        <span className="material-icons" style={{ fontSize: 14 }}>content_copy</span> Copy
+                      </button>
+                    </div>
+                  )
                   : m.content
                 }
               </div>

@@ -93,11 +93,11 @@ export default function About() {
         </div>
       </div>
 
-      {/* ── How to Choose Section / FAQ ── */}
-      <div className="container py-xl">
-        <p className="bask-text-small text-muted fw-600 mb-8">YOUR QUESTIONS, ANSWERED</p>
-        <h2 className="bask-section-heading mb-32">How to choose the best digital marketing agency in Bangalore.</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+      {/* ── FAQ ── */}
+      <div className="container" style={{ paddingTop: 96, paddingBottom: 80 }}>
+        <p className="bask-text-small text-muted fw-600 mb-8" style={{ letterSpacing: 3 }}>YOUR QUESTIONS, ANSWERED</p>
+        <h2 className="bask-section-heading" style={{ maxWidth: 640, marginBottom: 56 }}>How to choose the best digital marketing agency in Bangalore.</h2>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           {[
             {
               q: 'What does a digital marketing agency do?',
@@ -120,38 +120,41 @@ export default function About() {
               ],
             },
           ].map((item, i) => (
-            <div key={i} style={{ borderTop: '1px solid var(--gray-200)', padding: '28px 0' }}>
-              <h3 style={{ fontWeight: 700, fontSize: 17, marginBottom: 12 }}>{item.q}</h3>
-              {item.a && <p style={{ fontSize: 15, lineHeight: 1.8, color: 'var(--gray-600)', margin: 0 }}>{item.a}</p>}
-              {item.bullets && (
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  {item.bullets.map((b, j) => (
-                    <li key={j} style={{ display: 'flex', gap: 10, fontSize: 15, color: 'var(--gray-600)', lineHeight: 1.6 }}>
-                      <span className="material-icons" style={{ fontSize: 18, color: 'var(--black)', flexShrink: 0 }}>check_circle</span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              )}
+            <div key={i} style={{ borderTop: '1px solid var(--gray-200)', padding: '36px 0', display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 48, alignItems: 'start' }}>
+              <h3 style={{ fontWeight: 700, fontSize: 17, margin: 0, lineHeight: 1.5 }}>{item.q}</h3>
+              <div>
+                {item.a && <p style={{ fontSize: 15, lineHeight: 1.9, color: 'var(--gray-600)', margin: 0 }}>{item.a}</p>}
+                {item.bullets && (
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    {item.bullets.map((b, j) => (
+                      <li key={j} style={{ display: 'flex', gap: 12, fontSize: 15, color: 'var(--gray-600)', lineHeight: 1.7 }}>
+                        <span className="material-icons" style={{ fontSize: 18, color: 'var(--black)', flexShrink: 0, marginTop: 2 }}>check_circle</span>
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
           ))}
+          <div style={{ borderTop: '1px solid var(--gray-200)' }} />
         </div>
       </div>
 
       {/* ── Skill Bars ── */}
-      <div style={{ background: 'var(--gray-50)', borderTop: '1px solid var(--gray-200)' }} className="py-xl">
-        <div className="container">
-          <p className="bask-text-small text-muted fw-600 mb-8">WHAT WE EXCEL AT</p>
-          <h2 className="bask-section-heading mb-32">Our expertise at a glance.</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24 }}>
+      <div style={{ background: 'var(--gray-50)', borderTop: '1px solid var(--gray-200)', borderBottom: '1px solid var(--gray-200)' }}>
+        <div className="container" style={{ paddingTop: 80, paddingBottom: 80 }}>
+          <p className="bask-text-small text-muted fw-600 mb-8" style={{ letterSpacing: 3 }}>WHAT WE EXCEL AT</p>
+          <h2 className="bask-section-heading" style={{ marginBottom: 48 }}>Our expertise at a glance.</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 32 }}>
             {SKILLS.map(s => (
               <div key={s.label}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 14, fontWeight: 600 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10, fontSize: 14, fontWeight: 700 }}>
                   <span>{s.label}</span>
-                  <span>{s.pct}%</span>
+                  <span style={{ color: 'var(--gray-500)' }}>{s.pct}%</span>
                 </div>
-                <div style={{ background: 'var(--gray-200)', borderRadius: 99, height: 8, overflow: 'hidden' }}>
-                  <div style={{ width: `${s.pct}%`, height: '100%', background: 'var(--black)', borderRadius: 99, transition: 'width 1s ease' }} />
+                <div style={{ background: 'var(--gray-200)', borderRadius: 99, height: 6, overflow: 'hidden' }}>
+                  <div style={{ width: `${s.pct}%`, height: '100%', background: 'var(--black)', borderRadius: 99 }} />
                 </div>
               </div>
             ))}
@@ -160,20 +163,22 @@ export default function About() {
       </div>
 
       {/* ── Clients Grid ── */}
-      <div className="container py-xl">
-        <p className="bask-text-small text-muted fw-600 mb-8">TRUSTED BY</p>
-        <h2 className="bask-section-heading mb-32">Some of the clients we have worked with.</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+      <div className="container" style={{ paddingTop: 80, paddingBottom: 80 }}>
+        <p className="bask-text-small text-muted fw-600 mb-8" style={{ letterSpacing: 3 }}>TRUSTED BY</p>
+        <h2 className="bask-section-heading" style={{ marginBottom: 40 }}>Some of the clients we have worked with.</h2>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
           {CLIENTS_LOGOS.map(c => (
-            <span key={c} style={{ background: 'var(--gray-50)', border: '1px solid var(--gray-200)', borderRadius: 10, padding: '10px 20px', fontSize: 14, fontWeight: 700, letterSpacing: 1 }}>{c}</span>
+            <span key={c} style={{ background: 'var(--gray-50)', border: '1px solid var(--gray-200)', borderRadius: 12, padding: '12px 24px', fontSize: 14, fontWeight: 700, letterSpacing: 0.5 }}>{c}</span>
           ))}
         </div>
       </div>
 
       {/* ── CTA ── */}
-      <div className="container pb-xl text-center">
-        <h2 className="bask-headline-huge mb-24">Ready to grow with BASK?</h2>
-        <Link to="/contact" className="btn btn--primary btn--lg">Let's talk →</Link>
+      <div style={{ borderTop: '1px solid var(--gray-200)' }}>
+        <div className="container text-center" style={{ paddingTop: 96, paddingBottom: 96 }}>
+          <h2 className="bask-headline-huge" style={{ marginBottom: 28 }}>Ready to grow with BASK?</h2>
+          <Link to="/contact" className="btn btn--primary btn--lg">Let's talk →</Link>
+        </div>
       </div>
 
     </div>

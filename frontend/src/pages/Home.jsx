@@ -114,8 +114,11 @@ export default function Home() {
       </div>
 
       {/* Editorial Header Note */}
-      <div className="container" style={{ paddingTop: 32, paddingBottom: 40 }}>
+      <div className="container" style={{ paddingTop: 32, paddingBottom: 16, display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
         <p className="bask-text-small text-muted fw-600">Independent creative agency · Est. 2018</p>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#FFE600', color: '#000', fontWeight: 800, fontSize: 11, letterSpacing: 1.5, padding: '6px 14px', borderRadius: 99, textTransform: 'uppercase' }}>
+          🏆 Rated Top 10 Digital Marketing Agency in Bangalore
+        </span>
       </div>
 
       {/* ── Giant Editorial Hero ── */}
@@ -204,6 +207,129 @@ export default function Home() {
       </div>
 
 
+      {/* ── What We Do — 6 Service Cards ── */}
+      <div className="container pt-xl pb-lg">
+        <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <p className="bask-text-small text-muted fw-600 mb-8">OUR EXPERTISE</p>
+          <h2 className="bask-section-heading" style={{ maxWidth: 600, margin: '0 auto' }}>Everything your brand needs to grow.</h2>
+          <p style={{ fontSize: 15, color: 'var(--gray-500)', marginTop: 12 }}>We are for everyone — Startups, SMBs, Enterprises.</p>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }}>
+          {[
+            {
+              icon: 'trending_up',
+              title: 'Digital Marketing',
+              bgImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
+              desc: 'Increased visibility, efficient budgets, and deep customer engagement — the three core benefits of breathing digital with BASK.',
+              link: '/services',
+            },
+            {
+              icon: 'brush',
+              title: 'UI / UX Design',
+              bgImage: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80',
+              desc: 'Never miss a customer again. 94% of users leave within 3–5 seconds if they can\'t find what they need. We rebuild for performance.',
+              link: '/services',
+            },
+            {
+              icon: 'language',
+              title: 'Web Development',
+              bgImage: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80',
+              desc: 'Premium websites built on secure technologies. Static, dynamic, and ecommerce — corporate, content-driven, or selling.',
+              link: '/services',
+            },
+            {
+              icon: 'search',
+              title: 'SEO',
+              bgImage: 'https://images.unsplash.com/photo-1572177812156-58036aae43a0?auto=format&fit=crop&w=800&q=80',
+              desc: 'See the difference in 90 days. Better search rankings mean higher visibility and organic leads — without ad spend.',
+              link: '/services/seo-company-bangalore',
+            },
+            {
+              icon: 'people',
+              title: 'Social Media (SMM)',
+              bgImage: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80',
+              desc: 'Engage and evolve. Social media management converts audiences into fans and followers across the internet\'s hottest sites.',
+              link: '/services',
+            },
+            {
+              icon: 'phone_iphone',
+              title: 'Mobile Apps',
+              bgImage: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80',
+              desc: 'Designing solutions, serving greater purpose. App development built on the latest technology to serve customers on the go.',
+              link: '/contact',
+            },
+          ].map(card => (
+            <div key={card.title} style={{ 
+                position: 'relative',
+                borderRadius: 24, 
+                overflow: 'hidden', 
+                minHeight: 420,
+                display: 'flex', 
+                flexDirection: 'column', 
+                justifyContent: 'flex-end', 
+                padding: '36px 32px',
+                color: '#fff',
+                textDecoration: 'none',
+                transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-8px)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+              {/* Background Image */}
+              <div style={{
+                position: 'absolute',
+                top: 0, left: 0, width: '100%', height: '100%',
+                backgroundImage: `url(${card.bgImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                zIndex: 0,
+                transition: 'transform 0.5s ease',
+              }} className="bask-service-card-bg" />
+              
+              {/* Gradient Overlay for Text Readability */}
+              <div style={{
+                position: 'absolute',
+                top: 0, left: 0, width: '100%', height: '100%',
+                background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%)',
+                zIndex: 1
+              }} />
+
+              {/* Content */}
+              <div style={{ position: 'relative', zIndex: 2 }}>
+                <div style={{ 
+                  width: 48, height: 48, borderRadius: '50%', 
+                  background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(10px)', 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  marginBottom: 20
+                }}>
+                  <span className="material-icons" style={{ fontSize: 24, color: '#FFE600' }}>{card.icon}</span>
+                </div>
+                <h3 style={{ fontWeight: 900, fontSize: 24, margin: '0 0 12px', letterSpacing: '-0.02em', textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}>{card.title}</h3>
+                <p style={{ fontSize: 14.5, color: 'rgba(255,255,255,0.85)', lineHeight: 1.6, margin: '0 0 24px', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>{card.desc}</p>
+                
+                <Link to={card.link} style={{ 
+                  display: 'inline-flex', alignItems: 'center', gap: 6,
+                  fontSize: 13, fontWeight: 800, color: '#FFE600', textTransform: 'uppercase', letterSpacing: 1, 
+                  textDecoration: 'none' 
+                }}>
+                  Explore <span className="material-icons" style={{ fontSize: 16 }}>arrow_forward</span>
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Better Discussions CTA ── */}
+      <div style={{ background: 'var(--black)', color: '#fff', margin: '0 20px', borderRadius: 28, padding: '64px 56px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 32, marginBottom: 80 }}>
+        <div>
+          <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 4, color: '#FFE600', marginBottom: 12 }}>BETTER DISCUSSIONS · BETTER DECISIONS</p>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 900, color: '#fff', margin: 0, maxWidth: 480 }}>We are for everyone — Startups, SMBs, Enterprises.</h2>
+          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.6)', marginTop: 16, maxWidth: 420, lineHeight: 1.7 }}>Connect with us for a conversation. No jargon, no pitch decks — just a clear plan and honest numbers in 48 hours.</p>
+        </div>
+        <Link to="/contact" className="btn btn--primary btn--lg" style={{ background: '#FFE600', color: '#000', fontWeight: 800, whiteSpace: 'nowrap' }}>Speak to Us →</Link>
+      </div>
 
       {/* ── Recent Obsessions (Work) ── */}
       <div className="container pb-lg">
@@ -247,25 +373,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── What We Do ── */}
-      <div className="container pb-lg">
-        <p className="bask-text-small text-muted fw-600 mb-8">What we do</p>
-        <div className="grid-2 gap-lg align-start">
-          <div>
-            <h2 className="bask-headline-large mb-16">A multidisciplinary studio for brands who refuse to blend in.</h2>
-            <Link to="/about" className="bask-link-underline">More about us</Link>
-          </div>
-          <div className="bask-services-list">
-            {SERVICES.map((s, idx) => (
-              <div key={s} className="bask-service-row">
-                <span className="bask-text-small text-muted">/ 0{idx + 1}</span>
-                <span className="bask-service-name">{s}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* ── Trusted By ── */}
       <div className="pt-lg pb-lg">
         <div className="container">
@@ -288,52 +395,6 @@ export default function Home() {
               <span key={i} className="bask-client-logo">{c}</span>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* ── What We Offer ── */}
-      <div className="container pb-xl pt-lg">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
-          <div>
-            <p className="bask-text-small text-muted fw-600 mb-8">OUR OFFERINGS</p>
-            <h2 className="bask-section-heading" style={{ marginBottom: 0 }}>Services that move the needle.</h2>
-          </div>
-          <Link to="/services" className="bask-link-underline" style={{ paddingBottom: 8 }}>View all services</Link>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-          {[
-            {
-              num: '01', title: 'Internet Marketing', color: '#6EE7B7',
-              items: 'SEO · CRO · Email Marketing · Analytics · Audits',
-              desc: 'ROI-driven digital strategies built around your funnel — not guesswork.',
-            },
-            {
-              num: '02', title: 'Advertising Agency', color: '#93C5FD',
-              items: 'Google Ads · Display · Video · LinkedIn · Shopping',
-              desc: 'Reach the right audience at the right time with campaigns that actually convert.',
-            },
-            {
-              num: '03', title: 'Marketing Consulting', color: '#FCA5A5',
-              items: 'Strategy · Digital Roadmap · Performance Audits',
-              desc: 'Data-backed consulting tailored to your industry and growth stage.',
-            },
-            {
-              num: '04', title: 'Website Design', color: '#FDE68A',
-              items: 'Web Design · Landing Pages · UX/UI · Technical SEO',
-              desc: 'Conversion-optimised websites built for performance and mobile-first users.',
-            },
-          ].map((cat, i, arr) => (
-            <div key={cat.num} style={{ display: 'grid', gridTemplateColumns: '56px 1fr 1fr auto', gap: 24, alignItems: 'center', padding: '28px 0', borderTop: '1px solid var(--gray-200)', borderBottom: i === arr.length - 1 ? '1px solid var(--gray-200)' : 'none' }}>
-              <span style={{ fontWeight: 900, fontSize: 13, color: 'var(--gray-400)', letterSpacing: 1 }}>{cat.num}</span>
-              <div>
-                <h3 style={{ fontWeight: 800, fontSize: 20, margin: 0 }}>{cat.title}</h3>
-                <p style={{ margin: '6px 0 0', fontSize: 13, color: 'var(--gray-500)', letterSpacing: 0.3 }}>{cat.items}</p>
-              </div>
-              <p style={{ fontSize: 14, color: 'var(--gray-600)', lineHeight: 1.6, margin: 0 }}>{cat.desc}</p>
-              <span style={{ display: 'inline-block', width: 12, height: 12, borderRadius: '50%', background: cat.color, flexShrink: 0 }} />
-            </div>
-          ))}
         </div>
       </div>
 

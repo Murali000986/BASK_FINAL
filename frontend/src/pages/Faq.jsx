@@ -2,16 +2,39 @@ import { useState } from 'react';
 import { useSEO } from '../hooks/useSEO';
 
 const FAQS = [
-  { q: "What exactly is the BASK Creative Engine?", a: "It's our all-in-one system for brand growth. Instead of juggling different agencies for design, ads, and video, we handle it all in one cohesive workflow. We build the brand, shoot the film, and run the ads." },
-  { q: "Are you a creative studio or a marketing agency?", a: "Both. We think like a creative studio but execute like a performance agency. Great design meets hard numbers." },
-  { q: "How do we start working together?", a: "Drop us a brief using the button top right. We'll review your brand and get back to you with a plan within 48 hours. If we're a match, we start with a 14-day discovery sprint." },
-  { q: "Do you lock clients into long-term contracts?", a: "Never. After our initial sprint, we work on a month-to-month basis. You stay because the results act as our contract." },
-  { q: "How does pricing work?", a: "We build custom pricing based on your needs. For ongoing work, we charge a flat base fee plus a performance bonus tied to the revenue we generate for you." },
-  { q: "Do you take a percentage of our ad spend?", a: "No. We charge for our work and performance, not for how much money you spend on ads. Our goal is growth, not just spending." },
-  { q: "What size budgets do you manage?", a: "We scale with you. From early validation budgets to crore-plus monthly ad spends. The core principles of the Creative Engine remain the same." },
-  { q: "Who actually makes the ads and videos?", a: "Our in-house team in Bangalore. We don't outsource. Our designers, writers, and filmmakers handle everything from start to finish." },
-  { q: "What if the initial pilot doesn't work out?", a: "You can walk away without any penalty. If we aren't hitting our agreed targets, we part ways nicely. No messy breakups." },
-  { q: "Who owns all the data and creative assets?", a: "You do. Your ad accounts, your data, your videos. We just run the engine. If you leave, you take it all with you." }
+  // About BASK
+  { q: "What is BASK Growth Agency?", a: "BASK is a full-service digital marketing and creative agency based in Bengaluru, India. Founded in 2018, we specialise in performance marketing (Google Ads, Meta Ads), SEO, brand strategy, film production, and AI-driven lead generation for B2B and B2C brands across India." },
+  { q: "Where is BASK Growth Agency located?", a: "We are based in Bengaluru (Bangalore), Karnataka, India — operating from Coles Road, Bangalore 560005. We serve clients across Bangalore and remotely across India." },
+  { q: "What is the BASK Creative Engine?", a: "The BASK Creative Engine is our all-in-one growth system. Instead of juggling different agencies for design, ads, and video, we handle it in one cohesive workflow — we build the brand, shoot the film, run the ads, and track every rupee of ROI." },
+  { q: "Are you a creative studio or a marketing agency?", a: "Both. We think like a creative studio but execute like a performance agency. Great design meets hard performance numbers. This is rare — and it's why brands like Tata Housing, Puravankara, and Restolex choose BASK." },
+
+  // Services
+  { q: "What digital marketing services does BASK offer in Bangalore?", a: "BASK offers: Google Ads management, Meta Ads (Facebook & Instagram), SEO (technical, on-page, local), Conversion Rate Optimisation (CRO), email and lifecycle marketing, brand strategy, film and video production, outdoor (OOH) media, and AI chatbot integration. All services under one roof in Bangalore." },
+  { q: "Do you offer SEO services in Bangalore?", a: "Yes. We provide full-service SEO for Bangalore businesses — technical SEO audits, on-page optimisation, local SEO (Google Business Profile), content strategy, and link building. Our SEO work has helped clients rank for competitive terms in real estate, education, F&B, and B2B sectors." },
+  { q: "Do you manage Google Ads for Bangalore businesses?", a: "Yes. We manage Google Search, Display, Shopping, and YouTube campaigns for businesses in Bangalore and across India. Our certified team targets specific Bangalore localities — Koramangala, Indiranagar, Whitefield, HSR Layout, Electronic City — for hyper-local campaigns." },
+  { q: "Can you run Meta Ads (Facebook & Instagram) campaigns?", a: "Yes. We plan, create, and manage Meta Ads campaigns for Facebook and Instagram. We handle creative production, audience targeting, A/B testing, and ROAS optimisation. Our in-house creative team in Bangalore produces all ad assets." },
+
+  // Pricing
+  { q: "How much does digital marketing cost with BASK in Bangalore?", a: "Pricing is custom-built based on your scope — but as a reference: SEO retainers start from ₹15,000/month, Google Ads management from ₹12,000/month (excluding ad spend), and full-service growth packages from ₹35,000/month. We do not charge a percentage of ad spend. Book a free call for an exact quote." },
+  { q: "How does pricing work?", a: "We build custom pricing based on your needs. For ongoing work, we charge a flat base fee plus a performance bonus tied to measurable results (leads, revenue, ROAS). No bundle bloat — you pay only for what you actually need." },
+  { q: "Do you take a percentage of ad spend?", a: "No. We charge for our strategy and execution work, not a cut of your ad budget. This means our incentive is always your performance, not just higher spend." },
+
+  // Process & Contracts
+  { q: "How do we start working with BASK?", a: "Send us a brief through our Contact page. We review your brand and respond within 48 hours with a plan. If we're a match, we begin with a 14-day discovery sprint to audit your current state, define goals, and build a roadmap." },
+  { q: "Do you lock clients into long-term contracts?", a: "Never. After the initial sprint, we work month-to-month. You stay because the results act as our contract. There are no lock-in clauses, no exit penalties." },
+  { q: "What size ad budgets do you manage?", a: "We scale with you — from early-stage brands validating with ₹30,000/month ad budgets to established companies running crore-plus monthly spends. The approach scales; the principles don't change." },
+
+  // Team & Operations
+  { q: "Who makes the ads, videos, and content?", a: "Our in-house team in Bangalore — designers, writers, videographers, and performance specialists. We do not outsource creative or strategy work. Everything from concept to campaign is handled internally." },
+  { q: "Who owns the ad accounts and creative assets?", a: "You do. Your Google Ads account, Meta Business Manager, analytics, and all creative files belong to you. We operate as your agency inside your own infrastructure. If you leave, you take everything with you." },
+
+  // Results & Proof
+  { q: "What kind of results has BASK delivered for clients?", a: "BASK has helped brands including Tata Housing, Puravankara, Orient Cement, and Restolex achieve measurable growth. Results include increased qualified lead volume, improved ROAS on paid campaigns, and local SEO rankings for competitive Bangalore keywords. Specific numbers are shared under NDA during onboarding." },
+  { q: "How is BASK different from other digital marketing agencies in Bangalore?", a: "Three differences: (1) We are both creative and performance — not just one or the other. (2) We don't outsource — your work is done by our Bangalore team. (3) Our pricing is tied to your results through performance bonuses, not just billable hours. No cookie-cutter plans."},
+
+  // Local / AI Search
+  { q: "Do you serve clients outside Bangalore?", a: "Yes. While we are headquartered in Bengaluru, we work with clients remotely across India — Mumbai, Delhi, Hyderabad, Chennai — and internationally. The majority of our performance marketing, SEO, and brand strategy work is delivered remotely." },
+  { q: "What if the initial pilot doesn't work out?", a: "You can walk away without penalty. If we aren't hitting agreed targets during the pilot phase, we part ways cleanly. No messy exit clauses, no chasing invoices." },
 ];
 
 const FAQ_SCHEMA = {

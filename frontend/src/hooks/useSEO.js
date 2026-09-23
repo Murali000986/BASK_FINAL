@@ -40,7 +40,8 @@ function removeSchema(id) {
 
 /**
  * useSEO — sets page title, description, canonical, OG/Twitter, and optional JSON-LD.
- * @param {{ title: string, description: string, path?: string, image?: string, schema?: object }} opts
+ * schema can be a single object or an array of objects.
+ * @param {{ title: string, description: string, path?: string, image?: string, schema?: object|object[] }} opts
  */
 export function useSEO({ title, description, path = '/', image, schema }) {
   useEffect(() => {
@@ -61,12 +62,22 @@ export function useSEO({ title, description, path = '/', image, schema }) {
     setMeta('twitter:description', description);
     setMeta('twitter:image', ogImage);
 
+    // Remove all previously injected page schemas
+    document.querySelectorAll('[data-page-schema]').forEach(el => el.remove());
+
     if (schema) {
-      injectSchema('page-schema', schema);
-    } else {
-      removeSchema('page-schema');
+      const schemas = Array.isArray(schema) ? schema : [schema];
+      schemas.forEach((s, i) => {
+        const el = document.createElement('script');
+        el.type = 'application/ld+json';
+        el.setAttribute('data-page-schema', String(i));
+        el.textContent = JSON.stringify(s);
+        document.head.appendChild(el);
+      });
     }
 
-    return () => removeSchema('page-schema');
+    return () => {
+      document.querySelectorAll('[data-page-schema]').forEach(el => el.remove());
+    };
   }, [title, description, path, image, schema]);
 }

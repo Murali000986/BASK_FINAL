@@ -2,13 +2,49 @@ import { useState, useEffect } from 'react';
 import { api } from '../api';
 import { useSEO } from '../hooks/useSEO';
 
+const SERVICES_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "BASK Growth Agency",
+  "url": "https://www.baskgrowth.xyz/services",
+  "description": "Full-service digital marketing agency in Bangalore offering Google Ads, Meta Ads, SEO, CRO, brand strategy, film production, and AI automation.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bengaluru",
+    "addressRegion": "Karnataka",
+    "postalCode": "560005",
+    "streetAddress": "No. 3-B, 3rd Floor, Platinum Square, Coles Road",
+    "addressCountry": "IN"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "47",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Digital Marketing & Creative Services",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO Company Bangalore", "description": "Technical SEO, on-page optimisation, local SEO, and content strategy for Bangalore businesses." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Google Ads Agency Bangalore", "description": "Google Search, Display, Shopping, and YouTube campaign management for businesses in Bangalore and India." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Meta Ads Agency Bangalore", "description": "Facebook and Instagram advertising with in-house creative production and ROAS optimisation." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Conversion Rate Optimisation (CRO)", "description": "Landing page audits, A/B testing, and funnel optimisation to turn more visitors into customers." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Brand Strategy & Identity", "description": "Brand positioning, visual identity, messaging frameworks, and brand guidelines for growing businesses." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Film & Video Production Bangalore", "description": "Brand films, ad creatives, social reels, and corporate video production by our in-house Bangalore team." } }
+    ]
+  }
+};
+
 export default function Services() {
   const [services, setServices] = useState([]);
 
   useSEO({
-    title: 'Services — Branding, Digital Strategy & Film',
-    description: 'We execute brand strategy, advertising, digital campaigns, film & production for top tier brands in Bangalore and globally.',
+    title: 'Digital Marketing Services in Bangalore — Google Ads, Meta Ads, SEO & More',
+    description: 'BASK Growth Agency offers Google Ads, Meta Ads, SEO, CRO, brand strategy, film production and AI automation in Bangalore. Full-service agency — all in-house, no outsourcing. Get a free strategy call.',
     path: '/services',
+    schema: SERVICES_SCHEMA,
   });
 
   useEffect(() => {
