@@ -2008,3 +2008,116 @@ textarea { resize: vertical; min-height: 120px; }
 
 
 
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — covers all major sections
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── General Layout ─────────────────────────────────────────── */
+  section { padding: 60px 20px !important; }
+  .container, [class*="container"] { padding: 0 20px !important; max-width: 100% !important; }
+  h1 { font-size: clamp(2rem, 9vw, 3rem) !important; }
+  h2 { font-size: clamp(1.6rem, 7vw, 2.2rem) !important; }
+  h3 { font-size: clamp(1.2rem, 5vw, 1.6rem) !important; }
+
+  /* ── Hero Section ───────────────────────────────────────────── */
+  .hero, [class*="hero"] { padding: 80px 20px 60px !important; text-align: center; }
+  .hero h1, [class*="hero"] h1 { font-size: clamp(2rem, 10vw, 3rem) !important; }
+  .hero p, [class*="hero"] p { font-size: 1rem !important; }
+  .hero .btn, [class*="hero"] .btn { width: 100%; justify-content: center; margin-bottom: 12px; }
+  [class*="hero-actions"], [class*="hero-btns"], [class*="hero-cta"] {
+    flex-direction: column !important; gap: 12px !important; align-items: stretch !important;
+  }
+
+  /* ── Grids & Cards ──────────────────────────────────────────── */
+  [class*="grid"], [class*="cards"], [class*="services-grid"],
+  [class*="case-studies"], [class*="team-grid"], [class*="blog-grid"] {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  [class*="two-col"], [class*="split"], [class*="cols-2"] {
+    grid-template-columns: 1fr !important;
+    flex-direction: column !important;
+  }
+  [class*="three-col"], [class*="cols-3"] { grid-template-columns: 1fr !important; }
+  [class*="four-col"], [class*="cols-4"] { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── Stats / Numbers Row ────────────────────────────────────── */
+  [class*="stats"], [class*="metrics"], [class*="numbers"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* ── About / Team ───────────────────────────────────────────── */
+  [class*="about-inner"], [class*="about-content"] {
+    flex-direction: column !important; text-align: center !important;
+  }
+
+  /* ── Services ───────────────────────────────────────────────── */
+  [class*="service-card"] { padding: 28px 20px !important; }
+  [class*="service-hero"], [class*="services-hero"] { padding: 100px 20px 60px !important; }
+
+  /* ── Case Studies ───────────────────────────────────────────── */
+  [class*="case-card"], [class*="case-study-card"] {
+    flex-direction: column !important;
+    min-height: unset !important;
+  }
+  [class*="case-card"] img, [class*="case-study-card"] img {
+    width: 100% !important; height: 220px !important; object-fit: cover;
+  }
+
+  /* ── Blog ───────────────────────────────────────────────────── */
+  [class*="blog-card"] { flex-direction: column !important; }
+
+  /* ── Contact / Form ─────────────────────────────────────────── */
+  [class*="contact-grid"], [class*="contact-inner"] {
+    grid-template-columns: 1fr !important; flex-direction: column !important;
+  }
+
+  /* ── FAQ ────────────────────────────────────────────────────── */
+  [class*="faq-grid"], [class*="faq-inner"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Onboarding / Modal ─────────────────────────────────────── */
+  [class*="onboarding"], [class*="modal-inner"] {
+    padding: 24px 16px !important;
+    width: 95vw !important;
+    margin: 0 !important;
+  }
+
+  /* ── Footer ─────────────────────────────────────────────────── */
+  [class*="footer-grid"], [class*="footer-inner"], [class*="footer-links"] {
+    grid-template-columns: 1fr !important;
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 48px !important;
+  }
+  [class*="footer-bottom"] { flex-direction: column !important; gap: 12px !important; text-align: center !important; }
+
+  /* ── Showcase ───────────────────────────────────────────────── */
+  [class*="showcase"] { padding: 80px 16px 60px !important; }
+
+  /* ── ChatWidget ─────────────────────────────────────────────── */
+  [class*="chat-window"], [class*="chatWidget"] {
+    width: calc(100vw - 32px) !important;
+    right: 16px !important;
+    bottom: 80px !important;
+  }
+
+  /* ── Notification Toast ─────────────────────────────────────── */
+  .bask-toast {
+    left: 16px !important;
+    right: 16px !important;
+    transform: none !important;
+    min-width: unset !important;
+    width: calc(100% - 32px) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: clamp(1.8rem, 8vw, 2.4rem) !important; }
+  [class*="four-col"], [class*="cols-4"] { grid-template-columns: 1fr !important; }
+  [class*="stats"], [class*="metrics"] { grid-template-columns: 1fr 1fr !important; }
+}

@@ -42,66 +42,68 @@ export default function App() {
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(err => console.error('SW:', err));
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
 
-    let channel = null;
+    let pollInterval = null;
+    let lastChecked = new Date().toISOString();
 
-    function subscribeToNotifications(session) {
+    async function checkNotifications(userId) {
+      const { data } = await supabase
+        .from('notifications')
+        .select('message')
+        .eq('user_id', userId)
+        .gt('created_at', lastChecked)
+        .order('created_at', { ascending: true });
+
+      lastChecked = new Date().toISOString();
+
+      if (data && data.length > 0) {
+        const msg = data[data.length - 1].message; // show latest
+        setInAppNotif(msg);
+        setTimeout(() => setInAppNotif(null), 8000);
+
+        if ('Notification' in window && Notification.permission === 'granted') {
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(reg =>
+              reg.showNotification('BASK Agency', { body: msg, icon: '/logo.png' })
+            ).catch(() => new Notification('BASK Agency', { body: msg }));
+          } else {
+            new Notification('BASK Agency', { body: msg });
+          }
+        }
+      }
+    }
+
+    function startPolling(session) {
       if (!session) return;
-
       if ('Notification' in window && Notification.permission === 'default') {
         Notification.requestPermission();
       }
-
-      // Clean up any previous channel before creating a new one
-      if (channel) supabase.removeChannel(channel);
-
-      channel = supabase.channel(`notif:${session.user.id}`)
-        .on('postgres_changes', {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'notifications',
-          filter: `user_id=eq.${session.user.id}`
-        }, (payload) => {
-          const msg = payload.new.message;
-          // 1. In-App toast (always works, even on mobile)
-          setInAppNotif(msg);
-          setTimeout(() => setInAppNotif(null), 8000);
-          // 2. Native OS notification (desktop only)
-          if ('Notification' in window && Notification.permission === 'granted') {
-            if ('serviceWorker' in navigator) {
-              navigator.serviceWorker.ready.then(reg => reg.showNotification('BASK Agency', { body: msg, icon: '/logo.png' }));
-            } else {
-              new Notification('BASK Agency', { body: msg, icon: '/logo.png' });
-            }
-          }
-        })
-        .subscribe((status) => console.log('Realtime status:', status));
+      lastChecked = new Date().toISOString();
+      clearInterval(pollInterval);
+      pollInterval = setInterval(() => checkNotifications(session.user.id), 5000);
     }
 
-    // Subscribe immediately if already logged in
-    supabase.auth.getSession().then(({ data: { session } }) => subscribeToNotifications(session));
+    supabase.auth.getSession().then(({ data: { session } }) => startPolling(session));
 
-    // Also subscribe on login, unsubscribe on logout
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session) {
-        subscribeToNotifications(session);
-      } else {
-        if (channel) { supabase.removeChannel(channel); channel = null; }
-      }
+      clearInterval(pollInterval);
+      pollInterval = null;
+      if (session) startPolling(session);
     });
 
     return () => {
+      clearInterval(pollInterval);
       subscription.unsubscribe();
-      if (channel) supabase.removeChannel(channel);
     };
   }, []);
+
 
   return (
     <BrowserRouter>
       {inAppNotif && (
-        <div style={{
+        <div className="bask-toast" style={{
           position: 'fixed', top: 24, left: '50%', transform: 'translateX(-50%)', zIndex: 99999,
           background: '#09090b', color: '#fff', padding: '16px 24px', borderRadius: 16,
           boxShadow: '0 16px 40px rgba(0,0,0,0.2)', display: 'flex', alignItems: 'center', gap: 16,
