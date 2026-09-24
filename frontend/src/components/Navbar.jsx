@@ -1,8 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => setUser(session?.user ?? null));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => setUser(session?.user ?? null));
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const logout = () => supabase.auth.signOut();
 
   return (
     <>
@@ -18,7 +28,12 @@ export default function Navbar() {
             <NavLink to="/careers">Careers</NavLink>
             <NavLink to="/showcase">Showcase</NavLink>
             <NavLink to="/faq">FAQ</NavLink>
-            <Link to="/contact" className="bask-nav-cta">Write a brief</Link>
+            {user ? (
+              <button onClick={logout} style={{ background: 'none', border: '1px solid #e4e4e7', padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer', color: '#09090b' }}>Sign Out</button>
+            ) : (
+              <Link to="/login" className="bask-nav-cta">Sign In</Link>
+            )}
+            <Link to="/onboarding" className="bask-nav-cta" style={{ background: '#FFE600', color: '#09090b' }}>Write a brief</Link>
           </div>
 
           <button className={`bask-hamburger ${isOpen ? 'open' : ''}`} onClick={() => setIsOpen(!isOpen)}>
@@ -36,7 +51,12 @@ export default function Navbar() {
         <NavLink to="/careers" onClick={() => setIsOpen(false)}>Careers</NavLink>
         <NavLink to="/showcase" onClick={() => setIsOpen(false)}>Showcase</NavLink>
         <NavLink to="/faq" onClick={() => setIsOpen(false)}>FAQ</NavLink>
-        <Link to="/contact" className="btn btn--primary" onClick={() => setIsOpen(false)} style={{ marginTop: 24, justifyContent: 'center' }}>Write a brief</Link>
+        {user ? (
+          <button onClick={() => { logout(); setIsOpen(false); }} style={{ background: 'none', border: '1px solid #e4e4e7', padding: '12px', borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: 'pointer', color: '#09090b', textAlign: 'center', marginTop: 8 }}>Sign Out</button>
+        ) : (
+          <Link to="/login" className="btn btn--outline" onClick={() => setIsOpen(false)} style={{ marginTop: 8, justifyContent: 'center' }}>Sign In</Link>
+        )}
+        <Link to="/onboarding" className="btn btn--primary" onClick={() => setIsOpen(false)} style={{ marginTop: 8, justifyContent: 'center' }}>Write a brief</Link>
       </div>
     </>
   );

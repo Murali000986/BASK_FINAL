@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
 import { useSEO } from '../hooks/useSEO';
+import Onboarding from './Onboarding';
 
 const CLIENTS = ['PEPS', 'CONCORDE', 'ADARSH', 'SHEAFFER', 'AUKERA', 'WEBER', 'PURAVANKARA', 'EMBASSY', 'PLATINUM', 'SKYYE', 'ZLATE', 'SOBHA'];
 
@@ -51,6 +52,19 @@ export default function Home() {
   const [wordIdx, setWordIdx] = useState(0);
   const [fade, setFade] = useState(true);
   const [slideIdx, setSlideIdx] = useState(0);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    const hasSeen = localStorage.getItem('hasSeenOnboarding');
+    if (!hasSeen) {
+      setTimeout(() => setShowOnboarding(true), 1500);
+    }
+  }, []);
+
+  const closeOnboarding = () => {
+    localStorage.setItem('hasSeenOnboarding', 'true');
+    setShowOnboarding(false);
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -106,11 +120,21 @@ export default function Home() {
 
   return (
     <div className="bask-home">
+      
+      {/* Auto-popup Onboarding Modal */}
+      {showOnboarding && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, background: 'rgba(9,9,11,0.6)', backdropFilter: 'blur(8px)' }}>
+          <div style={{ width: '100%', maxWidth: 700, maxHeight: '90vh', overflowY: 'auto', background: '#fff', borderRadius: 32, boxShadow: '0 24px 64px rgba(0,0,0,0.2)' }} className="animate-fade-up">
+            <Onboarding isModal onClose={closeOnboarding} />
+          </div>
+        </div>
+      )}
+
       {/* Rectangular Top Announcement Bar */}
       <div className="bask-top-offer-bar">
         <span className="bask-top-offer-pill">SPECIAL OFFER</span>
         <span>🎉 First 5 New Clients Get <strong>30% to 40% OFF</strong> Full-Service Growth & Campaign Strategy!</span>
-        <Link to="/contact" className="bask-top-offer-btn">Claim 40% Offer →</Link>
+        <Link to="/onboarding" className="bask-top-offer-btn">Claim 40% Offer →</Link>
       </div>
 
       {/* Editorial Header Note */}
@@ -220,101 +244,80 @@ export default function Home() {
               icon: 'trending_up',
               title: 'Digital Marketing',
               bgImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
-              desc: 'Increased visibility, efficient budgets, and deep customer engagement — the three core benefits of breathing digital with BASK.',
+              desc: 'Increased visibility, efficient budgets, and deep customer engagement — the three core benefits.',
               link: '/services',
             },
             {
               icon: 'brush',
               title: 'UI / UX Design',
               bgImage: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80',
-              desc: 'Never miss a customer again. 94% of users leave within 3–5 seconds if they can\'t find what they need. We rebuild for performance.',
+              desc: 'Never miss a customer again. We audit, redesign, and rebuild for maximum performance and retention.',
               link: '/services',
             },
             {
               icon: 'language',
               title: 'Web Development',
               bgImage: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80',
-              desc: 'Premium websites built on secure technologies. Static, dynamic, and ecommerce — corporate, content-driven, or selling.',
+              desc: 'Premium websites built on secure technologies. Static, dynamic, and ecommerce solutions.',
               link: '/services',
             },
             {
               icon: 'search',
               title: 'SEO',
               bgImage: 'https://images.unsplash.com/photo-1572177812156-58036aae43a0?auto=format&fit=crop&w=800&q=80',
-              desc: 'See the difference in 90 days. Better search rankings mean higher visibility and organic leads — without ad spend.',
+              desc: 'See the difference in 90 days. Better search rankings mean higher visibility and organic leads.',
               link: '/services/seo-company-bangalore',
             },
             {
               icon: 'people',
-              title: 'Social Media (SMM)',
+              title: 'Social Media',
               bgImage: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80',
-              desc: 'Engage and evolve. Social media management converts audiences into fans and followers across the internet\'s hottest sites.',
+              desc: 'Engage and evolve. Social media management converts audiences into loyal fans.',
               link: '/services',
             },
             {
               icon: 'phone_iphone',
               title: 'Mobile Apps',
               bgImage: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80',
-              desc: 'Designing solutions, serving greater purpose. App development built on the latest technology to serve customers on the go.',
+              desc: 'Designing solutions, serving greater purpose. App development built on the latest cross-platform tech.',
               link: '/contact',
             },
           ].map(card => (
-            <div key={card.title} style={{ 
-                position: 'relative',
-                borderRadius: 24, 
-                overflow: 'hidden', 
-                minHeight: 420,
-                display: 'flex', 
-                flexDirection: 'column', 
-                justifyContent: 'flex-end', 
-                padding: '36px 32px',
-                color: '#fff',
-                textDecoration: 'none',
-                transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-8px)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              {/* Background Image */}
-              <div style={{
-                position: 'absolute',
-                top: 0, left: 0, width: '100%', height: '100%',
-                backgroundImage: `url(${card.bgImage})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                zIndex: 0,
-                transition: 'transform 0.5s ease',
-              }} className="bask-service-card-bg" />
-              
-              {/* Gradient Overlay for Text Readability */}
-              <div style={{
-                position: 'absolute',
-                top: 0, left: 0, width: '100%', height: '100%',
-                background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%)',
-                zIndex: 1
-              }} />
-
-              {/* Content */}
-              <div style={{ position: 'relative', zIndex: 2 }}>
-                <div style={{ 
-                  width: 48, height: 48, borderRadius: '50%', 
-                  background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(10px)', 
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  marginBottom: 20
-                }}>
-                  <span className="material-icons" style={{ fontSize: 24, color: '#FFE600' }}>{card.icon}</span>
-                </div>
-                <h3 style={{ fontWeight: 900, fontSize: 24, margin: '0 0 12px', letterSpacing: '-0.02em', textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}>{card.title}</h3>
-                <p style={{ fontSize: 14.5, color: 'rgba(255,255,255,0.85)', lineHeight: 1.6, margin: '0 0 24px', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>{card.desc}</p>
+            <div key={card.title} className="bask-flip-card">
+              <div className="bask-flip-content">
                 
-                <Link to={card.link} style={{ 
-                  display: 'inline-flex', alignItems: 'center', gap: 6,
-                  fontSize: 13, fontWeight: 800, color: '#FFE600', textTransform: 'uppercase', letterSpacing: 1, 
-                  textDecoration: 'none' 
-                }}>
-                  Explore <span className="material-icons" style={{ fontSize: 16 }}>arrow_forward</span>
-                </Link>
+                {/* Front Side */}
+                <div className="bask-flip-front">
+                  <div className="bask-flip-circle bask-flip-circle-1" />
+                  <div className="bask-flip-circle bask-flip-circle-2" />
+                  <img src={card.bgImage} className="bask-flip-img" alt={card.title} />
+                  <div className="bask-flip-overlay" />
+                  
+                  <div className="bask-flip-front-content">
+                    <span className="bask-flip-badge">{card.title.toUpperCase()}</span>
+                    
+                    <div>
+                      <div style={{ marginBottom: 12 }}>
+                        <span className="material-icons" style={{ fontSize: 36, color: '#FFE600' }}>{card.icon}</span>
+                      </div>
+                      <h3 className="bask-flip-title">{card.title}</h3>
+                      <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)' }}>Hover to explore</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Back Side (Rotating glowing border) */}
+                <div className="bask-flip-back">
+                  <div className="bask-flip-back-content">
+                    <span className="material-icons" style={{ fontSize: 42, color: '#FFE600', textShadow: '0 0 20px rgba(255,230,0,0.5)' }}>{card.icon}</span>
+                    <h3 style={{ fontSize: 24, fontWeight: 800, margin: 0, color: '#fff' }}>{card.title}</h3>
+                    <p style={{ fontSize: 14.5, color: '#aaa', lineHeight: 1.6, margin: 0 }}>{card.desc}</p>
+                    <Link to={card.link} className="btn btn--primary" style={{ background: '#FFE600', color: '#000', marginTop: 16 }}>
+                      Know More →
+                    </Link>
+                  </div>
+                </div>
+
               </div>
             </div>
           ))}

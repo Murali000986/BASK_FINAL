@@ -75,9 +75,19 @@ app.get('/api/careers', (_req, res) => {
 });
 
 app.post('/api/proposals', (req, res) => {
-  const { company, email, contact, phone, size, budget, goal, timeline, description } = req.body;
-  if (!company || !email) return res.status(400).json({ error: 'company and email required' });
-  const entry = { id: Date.now(), company, email, contact, phone, size, budget, goal, timeline, description, submittedAt: new Date() };
+  const { company, email, contact, phone, size, budget, goal, timeline, description, source, service } = req.body;
+  
+  // Relaxed requirement: just email is mandatory for new briefs
+  if (!email) return res.status(400).json({ error: 'Email is required' });
+  
+  const entry = { 
+    id: Date.now(), 
+    company, email, contact, phone, size, 
+    budget, goal, timeline, description, 
+    source, service,
+    submittedAt: new Date() 
+  };
+  
   proposals.push(entry);
   console.log('New proposal:', entry);
   res.status(201).json({ message: 'Proposal received', id: entry.id });

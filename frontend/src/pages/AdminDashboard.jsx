@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../api';
+import { supabase } from '../supabaseClient';
 
-const TABS = ['Dashboard', 'Proposals', 'Blogs', 'Services', 'Careers', 'Applications'];
+const TABS = ['Dashboard', 'Proposals', 'Users', 'Notifications', 'Blogs', 'Services', 'Careers', 'Applications'];
 
 function StatCard({ icon, label, value, sub }) {
   return (
@@ -36,7 +37,18 @@ function AlertBanner({ type, msg, onClose }) {
 // ── Dashboard Tab ──────────────────────────────────────────────────────────────
 function DashboardTab() {
   const [stats, setStats] = useState(null);
-  useEffect(() => { api.admin.getStats().then(setStats).catch(() => {}); }, []);
+  useEffect(() => {
+    async function loadStats() {
+      const [{ count: proposals }, { count: blogs }, { count: careers }, { count: applications }] = await Promise.all([
+        supabase.from('proposals').select('*', { count: 'exact', head: true }),
+        supabase.from('blogs').select('*', { count: 'exact', head: true }),
+        supabase.from('careers').select('*', { count: 'exact', head: true }),
+        supabase.from('applications').select('*', { count: 'exact', head: true }),
+      ]);
+      setStats({ proposals, blogs, careers, applications, subscribers: 0 });
+    }
+    loadStats();
+  }, []);
   if (!stats) return <div style={{ color: '#a1a1aa', padding: 40, fontFamily: 'monospace' }}>Loading telemetry…</div>;
   return (
     <div>
@@ -56,7 +68,11 @@ function DashboardTab() {
 function ProposalsTab() {
   const [items, setItems] = useState([]);
   const [selected, setSelected] = useState(null);
-  useEffect(() => { api.admin.getProposals().then(setItems).catch(() => {}); }, []);
+  useEffect(() => {
+    supabase.from('proposals').select('*').order('submitted_at', { ascending: false }).then(({ data }) => {
+      if (data) setItems(data.map(p => ({ ...p, submittedAt: p.submitted_at })));
+    });
+  }, []);
 
   return (
     <div>
@@ -69,7 +85,7 @@ function ProposalsTab() {
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
               <thead>
                 <tr style={{ background: '#fafafa', borderBottom: '1px solid #e4e4e7' }}>
-                  {['Company', 'Contact', 'Email', 'Budget', 'Goal', 'Submitted'].map(h => (
+                  {['Name/Contact', 'Email', 'Service', 'Budget', 'Source', 'Submitted'].map(h => (
                     <th key={h} style={{ textAlign: 'left', padding: '16px', fontWeight: 600, fontSize: 12, color: '#71717a' }}>{h}</th>
                   ))}
                   <th></th>
@@ -78,11 +94,11 @@ function ProposalsTab() {
               <tbody>
                 {items.map(p => (
                   <tr key={p.id} style={{ borderBottom: '1px solid #f4f4f5' }}>
-                    <td style={{ padding: '16px', fontWeight: 600 }}>{p.company}</td>
-                    <td style={{ padding: '16px' }}>{p.contact}</td>
+                    <td style={{ padding: '16px', fontWeight: 600 }}>{p.contact || p.company || '—'}</td>
                     <td style={{ padding: '16px' }}><a href={`mailto:${p.email}`} style={{ color: '#0ea5e9', textDecoration: 'none' }}>{p.email}</a></td>
+                    <td style={{ padding: '16px' }}>{p.service || p.goal || '—'}</td>
                     <td style={{ padding: '16px' }}>{p.budget || '—'}</td>
-                    <td style={{ padding: '16px' }}>{p.goal}</td>
+                    <td style={{ padding: '16px' }}>{p.source || '—'}</td>
                     <td style={{ padding: '16px', color: '#a1a1aa', whiteSpace: 'nowrap' }}>{new Date(p.submittedAt).toLocaleDateString('en-IN')}</td>
                     <td style={{ padding: '16px', textAlign: 'right' }}>
                       <button style={{ background: '#f4f4f5', border: 'none', borderRadius: 6, padding: '6px 12px', fontSize: 13, fontWeight: 500, cursor: 'pointer', color: '#3f3f46', transition: 'background 0.2s' }} onMouseEnter={e => e.target.style.background = '#e4e4e7'} onMouseLeave={e => e.target.style.background = '#f4f4f5'} onClick={() => setSelected(p)}>View</button>
@@ -100,11 +116,13 @@ function ProposalsTab() {
           onClick={e => e.target === e.currentTarget && setSelected(null)}>
           <div style={{ background: '#fff', width: '100%', maxWidth: 560, maxHeight: '85vh', overflowY: 'auto', borderRadius: 24, boxShadow: '0 24px 48px rgba(0,0,0,0.1)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '24px 32px', borderBottom: '1px solid #e4e4e7' }}>
-              <h3 style={{ margin: 0, fontSize: 20 }}>Proposal Details</h3>
+              <h3 style={{ margin: 0, fontSize: 20 }}>Brief / Proposal Details</h3>
               <button onClick={() => setSelected(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 20, color: '#a1a1aa' }}>✕</button>
             </div>
             <div style={{ padding: '24px 32px' }}>
-              {[['Company', selected.company], ['Contact', selected.contact], ['Email', selected.email], ['Phone', selected.phone || '—'], ['Company Size', selected.size], ['Budget', selected.budget || '—'], ['Goal', selected.goal], ['Timeline', selected.timeline], ['Description', selected.description || '—'], ['Submitted', new Date(selected.submittedAt).toLocaleString('en-IN')]].map(([k, v]) => (
+              {[['Contact Name', selected.contact], ['Email', selected.email], ['Phone', selected.phone], ['Service Needed', selected.service || selected.goal], ['Budget', selected.budget], ['Source', selected.source], ['Company', selected.company], ['Company Size', selected.size], ['Timeline', selected.timeline], ['Description', selected.description], ['Submitted', new Date(selected.submittedAt).toLocaleString('en-IN')]]
+                .filter(([_, v]) => v) // filter out empty values since new form doesn't use company/size/timeline
+                .map(([k, v]) => (
                 <div key={k} style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: 16, padding: '12px 0', borderBottom: '1px solid #f4f4f5', fontSize: 14 }}>
                   <span style={{ fontWeight: 500, color: '#71717a' }}>{k}</span>
                   <span style={{ wordBreak: 'break-word', color: '#09090b' }}>{v}</span>
@@ -120,6 +138,151 @@ function ProposalsTab() {
 
 // ... BlogsTab, ServicesTab, CareersTab, ApplicationsTab with similar modern styling applied
 // Updating just the container and common elements for brevity, applying similar logic.
+
+// ── Users Tab ────────────────────────────────────────────────────────────────
+function UsersTab() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase.from('profiles').select('*').order('created_at', { ascending: false }).then(({ data }) => {
+      if (data) setItems(data);
+      setLoading(false);
+    });
+  }, []);
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
+        <h2 style={{ margin: 0, fontSize: 28, letterSpacing: '-0.03em' }}>Registered Users</h2>
+      </div>
+
+      <div style={{ background: '#fff', borderRadius: 16, border: '1px solid #e4e4e7', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: 13 }}>
+          <thead>
+            <tr style={{ background: '#fafafa', borderBottom: '1px solid #e4e4e7' }}>
+              <th style={{ padding: '16px 24px', fontWeight: 600, color: '#71717a' }}>User</th>
+              <th style={{ padding: '16px 24px', fontWeight: 600, color: '#71717a' }}>Email</th>
+              <th style={{ padding: '16px 24px', fontWeight: 600, color: '#71717a' }}>Joined</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loading ? (
+              <tr><td colSpan="3" style={{ padding: '32px 24px', textAlign: 'center', color: '#a1a1aa' }}>Loading users...</td></tr>
+            ) : items.length === 0 ? (
+              <tr><td colSpan="3" style={{ padding: '32px 24px', textAlign: 'center', color: '#a1a1aa' }}>No users found.</td></tr>
+            ) : (
+              items.map(u => (
+                <tr key={u.id} style={{ borderBottom: '1px solid #f4f4f5' }}>
+                  <td style={{ padding: '16px 24px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      {u.avatar_url ? (
+                        <img src={u.avatar_url} alt="Profile" style={{ width: 32, height: 32, borderRadius: '50%', objectFit: 'cover' }} />
+                      ) : (
+                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#f4f4f5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600 }}>
+                          {(u.full_name?.[0] || u.email?.[0] || 'U').toUpperCase()}
+                        </div>
+                      )}
+                      <span style={{ fontWeight: 600, color: '#09090b', fontSize: 14 }}>{u.full_name || 'Anonymous'}</span>
+                    </div>
+                  </td>
+                  <td style={{ padding: '16px 24px', color: '#3f3f46' }}>{u.email}</td>
+                  <td style={{ padding: '16px 24px', color: '#71717a' }}>{new Date(u.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+// ── Notifications Tab (Realtime Web Pushes) ──────────────────────────────────
+function NotificationsTab() {
+  const [msg, setMsg] = useState('');
+  const [users, setUsers] = useState([]);
+  const [selectedUserIds, setSelectedUserIds] = useState(new Set());
+  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState('');
+
+  useEffect(() => {
+    supabase.from('profiles').select('id, email, full_name').then(({ data }) => setUsers(data || []));
+  }, []);
+
+  const toggleUser = (id) => {
+    const next = new Set(selectedUserIds);
+    if (next.has(id)) next.delete(id); else next.add(id);
+    setSelectedUserIds(next);
+  };
+  const selectAll = () => setSelectedUserIds(new Set(users.map(u => u.id)));
+  const clearAll = () => setSelectedUserIds(new Set());
+
+  const sendNotification = async (e) => {
+    e.preventDefault();
+    if (!msg.trim()) return setStatus('⚠️ Please enter a message.');
+    if (selectedUserIds.size === 0) return setStatus('⚠️ Please select at least one user.');
+    setSending(true); setStatus('');
+    
+    const inserts = Array.from(selectedUserIds).map(id => ({ user_id: id, message: msg.trim() }));
+    const { error } = await supabase.from('notifications').insert(inserts);
+    
+    setSending(false);
+    if (error) setStatus('❌ Failed to send notifications.');
+    else {
+      setStatus(`✅ Sent notification to ${selectedUserIds.size} user(s)!`);
+      setMsg('');
+      setSelectedUserIds(new Set());
+    }
+  };
+
+  return (
+    <div>
+      <h2 style={{ marginBottom: 28, fontSize: 28, letterSpacing: '-0.03em' }}>Push Notifications</h2>
+      
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 300px', gap: 32 }}>
+        <form onSubmit={sendNotification} style={{ background: '#fff', padding: 32, borderRadius: 16, border: '1px solid #e4e4e7', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
+          <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#09090b', marginBottom: 8 }}>Message Body</label>
+          <textarea value={msg} onChange={e => setMsg(e.target.value)} rows="5" placeholder="Type notification message here..."
+            style={{ width: '100%', padding: '16px', border: '1.5px solid #e4e4e7', borderRadius: 12, fontSize: 14, fontFamily: 'inherit', resize: 'vertical', display: 'block', boxSizing: 'border-box' }}
+          />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 24 }}>
+            <span style={{ fontSize: 13, color: '#3f3f46', fontWeight: 500 }}>{selectedUserIds.size} recipient(s) selected</span>
+            <button type="submit" disabled={sending} style={{ padding: '12px 24px', background: sending ? '#d4d4d8' : '#09090b', color: '#fff', border: 'none', borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: sending ? 'not-allowed' : 'pointer' }}>
+              {sending ? 'Sending...' : 'Send Web Push 🚀'}
+            </button>
+          </div>
+          {status && <div style={{ marginTop: 16, fontSize: 14, fontWeight: 500, color: status.includes('✅') ? '#16a34a' : '#dc2626' }}>{status}</div>}
+        </form>
+
+        <div style={{ background: '#fff', borderRadius: 16, border: '1px solid #e4e4e7', overflow: 'hidden', display: 'flex', flexDirection: 'column', height: '400px' }}>
+          <div style={{ padding: '16px 20px', borderBottom: '1px solid #e4e4e7', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fafafa' }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: '#09090b' }}>Recipients</span>
+            <div style={{ display: 'flex', gap: 8 }}>
+               <button type="button" onClick={selectAll} style={{ fontSize: 11, background: 'none', border: 'none', cursor: 'pointer', color: '#6366f1', fontWeight: 600 }}>All</button>
+               <button type="button" onClick={clearAll} style={{ fontSize: 11, background: 'none', border: 'none', cursor: 'pointer', color: '#71717a', fontWeight: 600 }}>Clear</button>
+            </div>
+          </div>
+          <div style={{ flex: 1, overflowY: 'auto' }}>
+            {users.length === 0 ? (
+               <div style={{ padding: 24, textAlign: 'center', color: '#a1a1aa', fontSize: 13 }}>No users found</div>
+            ) : (
+               users.map(u => (
+                 <label key={u.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 20px', borderBottom: '1px solid #f4f4f5', cursor: 'pointer' }}>
+                   <input type="checkbox" checked={selectedUserIds.has(u.id)} onChange={() => toggleUser(u.id)} style={{ cursor: 'pointer', width: 16, height: 16 }} />
+                   <div style={{ display: 'flex', flexDirection: 'column' }}>
+                     <span style={{ fontSize: 13, fontWeight: 600, color: '#09090b', lineHeight: 1.2 }}>{u.full_name || 'Anonymous User'}</span>
+                     <span style={{ fontSize: 11, color: '#71717a' }}>{u.email}</span>
+                   </div>
+                 </label>
+               ))
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // ── Blogs Tab ──────────────────────────────────────────────────────────────────
 function BlogsTab() {
@@ -605,11 +768,14 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('admin_token');
-    if (!token) navigate('/admin');
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) navigate('/admin');
+    });
   }, [navigate]);
 
-  function logout() { localStorage.removeItem('admin_token'); navigate('/admin'); }
+  function logout() {
+    supabase.auth.signOut().then(() => navigate('/admin'));
+  }
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: '#fafafa', fontFamily: 'Inter, system-ui, sans-serif' }}>
@@ -656,6 +822,8 @@ export default function AdminDashboard() {
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           {tab === 'Dashboard' && <DashboardTab />}
           {tab === 'Proposals' && <ProposalsTab />}
+          {tab === 'Users' && <UsersTab />}
+          {tab === 'Notifications' && <NotificationsTab />}
           {tab === 'Blogs' && <BlogsTab />}
           {tab === 'Services' && <ServicesTab />}
           {tab === 'Careers' && <CareersTab />}

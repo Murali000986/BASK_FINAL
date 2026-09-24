@@ -1,83 +1,182 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api } from '../api';
+import { supabase } from '../supabaseClient';
+
+const LOGO_STYLE = { height: 48, marginBottom: 24 };
+
+const inputStyle = {
+  width: '100%',
+  padding: '14px 16px',
+  border: '1.5px solid #e4e4e7',
+  borderRadius: 10,
+  fontSize: 15,
+  outline: 'none',
+  transition: 'border 0.2s',
+  boxSizing: 'border-box',
+  fontFamily: 'inherit',
+  background: '#fafafa',
+};
+
+const btnStyle = (disabled) => ({
+  width: '100%',
+  padding: '14px',
+  background: disabled ? '#d4d4d8' : '#09090b',
+  color: '#fff',
+  border: 'none',
+  borderRadius: 10,
+  fontSize: 15,
+  fontWeight: 700,
+  cursor: disabled ? 'not-allowed' : 'pointer',
+  transition: 'background 0.2s',
+  marginTop: 8,
+});
+
+const TABS = ['Password', 'Magic Link', 'Forgot Password'];
 
 export default function AdminLogin() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [tab, setTab] = useState('Password');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState({ type: '', text: '' });
 
-  async function handleSubmit(e) {
+  const clearMsg = () => setMsg({ type: '', text: '' });
+
+  async function loginWithPassword(e) {
     e.preventDefault();
-    if (!username.trim() || !password.trim()) { setError('Username and Password are required'); return; }
-    setLoading(true);
-    setError('');
-    try {
-      const { token } = await api.admin.login(username, password);
-      localStorage.setItem('admin_token', token);
-      navigate('/admin/dashboard');
-    } catch {
-      setError('Invalid credentials. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+    if (!email || !password) return setMsg({ type: 'error', text: 'Please fill in all fields.' });
+    setLoading(true); clearMsg();
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setLoading(false);
+    if (error) return setMsg({ type: 'error', text: error.message });
+    navigate('/admin/dashboard');
+  }
+
+  async function sendMagicLink(e) {
+    e.preventDefault();
+    if (!email) return setMsg({ type: 'error', text: 'Enter your email address.' });
+    setLoading(true); clearMsg();
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: `${window.location.origin}/admin/dashboard` }
+    });
+    setLoading(false);
+    if (error) return setMsg({ type: 'error', text: error.message });
+    setMsg({ type: 'success', text: `Magic link sent to ${email}! Check your inbox.` });
+  }
+
+  async function forgotPassword(e) {
+    e.preventDefault();
+    if (!email) return setMsg({ type: 'error', text: 'Enter your email address.' });
+    setLoading(true); clearMsg();
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/admin/dashboard`
+    });
+    setLoading(false);
+    if (error) return setMsg({ type: 'error', text: error.message });
+    setMsg({ type: 'success', text: `Password reset email sent to ${email}!` });
   }
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, background: '#fafafa', fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <div style={{ width: '100%', maxWidth: 420 }}>
-        
-        {/* Sleek B&W Card UI */}
-        <div style={{ background: '#fff', border: '1px solid #e4e4e7', borderRadius: 16, padding: 40, boxShadow: '0 12px 32px rgba(0,0,0,0.04)' }}>
-          <div style={{ textAlign: 'center', marginBottom: 40 }}>
-            <img src="/logo.png" alt="BASK Agency" style={{ height: 80, margin: '0 auto 20px', display: 'block' }} />
-            <h2 style={{ margin: '0 0 6px', color: '#09090b', fontSize: 24, letterSpacing: '-0.03em' }}>Admin Portal</h2>
-            <p style={{ margin: 0, fontSize: 14, color: '#71717a' }}>Authorized Personnel Only</p>
+    <div style={{
+      minHeight: '100vh', background: '#fafafa', display: 'flex', alignItems: 'center',
+      justifyContent: 'center', padding: 24, fontFamily: 'Inter, system-ui, sans-serif'
+    }}>
+      <div style={{
+        background: '#fff', borderRadius: 24, padding: '48px 40px', width: '100%',
+        maxWidth: 440, boxShadow: '0 8px 40px rgba(0,0,0,0.06)', border: '1px solid #e4e4e7'
+      }}>
+        <div style={{ textAlign: 'center', marginBottom: 32 }}>
+          <img src="/logo.png" alt="BASK" style={LOGO_STYLE} />
+          <h1 style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.03em', margin: 0 }}>Admin Portal</h1>
+          <p style={{ color: '#71717a', fontSize: 14, marginTop: 6 }}>Sign in to manage BASK Agency</p>
+        </div>
+
+        {/* Tabs */}
+        <div style={{ display: 'flex', background: '#f4f4f5', borderRadius: 10, padding: 4, marginBottom: 28, gap: 4 }}>
+          {TABS.map(t => (
+            <button key={t} onClick={() => { setTab(t); clearMsg(); }}
+              style={{
+                flex: 1, padding: '9px 6px', fontSize: 12, fontWeight: 600, border: 'none', borderRadius: 8,
+                cursor: 'pointer', transition: 'all 0.2s', whiteSpace: 'nowrap',
+                background: tab === t ? '#fff' : 'transparent',
+                color: tab === t ? '#09090b' : '#71717a',
+                boxShadow: tab === t ? '0 1px 4px rgba(0,0,0,0.08)' : 'none'
+              }}>
+              {t}
+            </button>
+          ))}
+        </div>
+
+        {/* Alert */}
+        {msg.text && (
+          <div style={{
+            marginBottom: 20, padding: '12px 16px', borderRadius: 10, fontSize: 14, fontWeight: 500,
+            background: msg.type === 'error' ? '#fef2f2' : '#f0fdf4',
+            color: msg.type === 'error' ? '#dc2626' : '#16a34a',
+            border: `1px solid ${msg.type === 'error' ? '#fecaca' : '#bbf7d0'}`
+          }}>
+            {msg.type === 'error' ? '⚠ ' : '✓ '}{msg.text}
           </div>
+        )}
 
-          {error && (
-            <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 12, padding: '14px 16px', marginBottom: 24, color: '#dc2626', fontSize: 14, display: 'flex', gap: 10, alignItems: 'center' }}>
-              <span className="material-icons" style={{ fontSize: 20 }}>error_outline</span> {error}
+        {/* Password Login */}
+        {tab === 'Password' && (
+          <form onSubmit={loginWithPassword} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 6, color: '#374151' }}>Email</label>
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} style={inputStyle} placeholder="admin@baskgrowth.xyz" autoComplete="email" />
             </div>
-          )}
-
-          <form onSubmit={handleSubmit}>
-            <div className="form-group" style={{ marginBottom: 20 }}>
-              <label style={{ display: 'block', color: '#3f3f46', fontSize: 13, fontWeight: 600, marginBottom: 8 }}>Username</label>
-              <input
-                type="text"
-                placeholder="Enter username"
-                value={username}
-                onChange={e => { setUsername(e.target.value); setError(''); }}
-                autoFocus
-                style={{ width: '100%', background: '#fff', border: '1px solid #e4e4e7', color: '#09090b', borderRadius: 10, padding: '14px 16px', fontSize: 15, transition: 'border-color 0.2s' }}
-              />
+            <div>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 6, color: '#374151' }}>Password</label>
+              <input type="password" value={password} onChange={e => setPassword(e.target.value)} style={inputStyle} placeholder="••••••••" autoComplete="current-password" />
             </div>
-            
-            <div className="form-group" style={{ marginBottom: 32 }}>
-              <label style={{ display: 'block', color: '#3f3f46', fontSize: 13, fontWeight: 600, marginBottom: 8 }}>Password</label>
-              <input
-                type="password"
-                placeholder="Enter password"
-                value={password}
-                onChange={e => { setPassword(e.target.value); setError(''); }}
-                style={{ width: '100%', background: '#fff', border: '1px solid #e4e4e7', color: '#09090b', borderRadius: 10, padding: '14px 16px', fontSize: 15, transition: 'border-color 0.2s' }}
-              />
-            </div>
-            
-            <button type="submit" disabled={loading} style={{ width: '100%', padding: '16px', background: '#09090b', color: '#fff', border: 'none', borderRadius: 10, fontSize: 16, fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s', opacity: loading ? 0.7 : 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              {loading ? 'Authenticating…' : 'Sign In'}
+            <button type="submit" disabled={loading} style={btnStyle(loading)}>
+              {loading ? 'Signing in...' : 'Sign In'}
+            </button>
+            <button type="button" onClick={() => setTab('Forgot Password')}
+              style={{ background: 'none', border: 'none', color: '#6366f1', fontSize: 13, fontWeight: 600, cursor: 'pointer', textAlign: 'center', marginTop: 4 }}>
+              Forgot your password?
             </button>
           </form>
-        </div>
-        
-        <p style={{ textAlign: 'center', fontSize: 13, color: '#a1a1aa', marginTop: 24 }}>
-          <a href="/" style={{ color: '#71717a', textDecoration: 'none', transition: 'color 0.2s', fontWeight: 500 }} onMouseEnter={e => e.target.style.color = '#09090b'} onMouseLeave={e => e.target.style.color = '#71717a'}>
-            ← Return to public site
-          </a>
-        </p>
+        )}
+
+        {/* Magic Link (Email OTP) */}
+        {tab === 'Magic Link' && (
+          <form onSubmit={sendMagicLink} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <p style={{ fontSize: 14, color: '#71717a', lineHeight: 1.6, margin: 0 }}>
+              We'll email you a secure, one-click login link. No password required.
+            </p>
+            <div>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 6, color: '#374151' }}>Email</label>
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} style={inputStyle} placeholder="admin@baskgrowth.xyz" />
+            </div>
+            <button type="submit" disabled={loading} style={btnStyle(loading)}>
+              {loading ? 'Sending...' : 'Send Magic Link ✨'}
+            </button>
+          </form>
+        )}
+
+        {/* Forgot Password */}
+        {tab === 'Forgot Password' && (
+          <form onSubmit={forgotPassword} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <p style={{ fontSize: 14, color: '#71717a', lineHeight: 1.6, margin: 0 }}>
+              Enter your email and we'll send you a link to reset your password.
+            </p>
+            <div>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 6, color: '#374151' }}>Email</label>
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} style={inputStyle} placeholder="admin@baskgrowth.xyz" />
+            </div>
+            <button type="submit" disabled={loading} style={btnStyle(loading)}>
+              {loading ? 'Sending...' : 'Send Reset Link'}
+            </button>
+            <button type="button" onClick={() => setTab('Password')}
+              style={{ background: 'none', border: 'none', color: '#71717a', fontSize: 13, fontWeight: 600, cursor: 'pointer', textAlign: 'center' }}>
+              ← Back to Sign In
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );
